@@ -33,7 +33,7 @@ include_once 'public/header.php';
                 This is a warning alert—check it out!
             </div>
             <div class="d-flex justify-content-center">
-                <a href="?controlador=Matricula" class="btn btn-primary btn-lg btn-block button col-sm-6">Ir al formulario</a>
+                <a href="?controller=Matricula" class="btn btn-primary btn-lg btn-block button col-sm-6">Ir al formulario</a>
             </div>
         </div>
     </div>

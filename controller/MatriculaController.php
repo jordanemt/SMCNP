@@ -1,10 +1,10 @@
 <?php
 
-class IndexController {
+class MatriculaController {
 
     public function __construct() {
         $this->view = new View();
-        $this->controllerName = 'Index/';
+        $this->controllerName = 'Matricula/';
     }
 
     public function index() {
