@@ -49,7 +49,7 @@ include_once 'public/header.php';
                 <small id="direccionHelp" class="form-text text-muted">Indique la dirección exacta donde vive actualmente</small>
             </div>
         </div>
-        <div id="nivelMatricula"> <script>$("#nivelMatricula").hide()</script>
+        <div id="nivelMatricula">
             <h4>Nivel a matricular</h4>
             <div class="form-group">
                 <label for="nivel">Nivel de matrícula</label>
