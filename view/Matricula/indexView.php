@@ -82,71 +82,144 @@ include_once 'public/header.php';
             <input type="text" class="form-control" id="contact_phone" name="other_mail" placeholder="Ingrese el teléfono del contacto">
         </div>
 
-        <div class="row justify-content-center">
-            <div class="form-group col-sm-4">
-                <label>¿Cuenta con el beneficio del IMAS?</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="imas_benefitYes" name="imas_benefit" value="1">
-                    <label class="form-check-label" for="imas_benefitYes">
-                        Sí
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="imas_benefitNo" name="imas_benefit" value="0">
-                    <label class="form-check-label" for="imas_benefitNo">
-                        No
-                    </label>
-                </div>
+        <div class="form-group">
+            <label>¿Cuenta con el beneficio del IMAS?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="imas_benefitYes" name="imas_benefit" value="1">
+                <label class="form-check-label" for="imas_benefitYes">
+                    Sí
+                </label>
             </div>
-            <div class="form-group col-sm-4">
-                <label>¿Es madre o padre adolescente?</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="teenage_fatherYes" name="teenage_father" value="1">
-                    <label class="form-check-label" for="teenage_fatherYes">
-                        Sí
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="teenage_fatherNo" name="teenage_father" value="0">
-                    <label class="form-check-label" for="teenage_fatherNo">
-                        No
-                    </label>
-                </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="imas_benefitNo" name="imas_benefit" value="0">
+                <label class="form-check-label" for="imas_benefitNo">
+                    No
+                </label>
             </div>
-            <div class="form-group col-sm-4">
-                <label>¿Actualmente trabaja?</label>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="workingYes" name="working" value="1">
-                    <label class="form-check-label" for="workingYes">
-                        Sí
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="workingNo" name="working" value="0">
-                    <label class="form-check-label" for="workingNo">
-                        No
-                    </label>
-                </div>
+        </div>
+
+        <div class="form-group">
+            <label>¿Es madre o padre adolescente?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="teenage_fatherYes" name="teenage_father" value="1">
+                <label class="form-check-label" for="teenage_fatherYes">
+                    Sí
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="teenage_fatherNo" name="teenage_father" value="0">
+                <label class="form-check-label" for="teenage_fatherNo">
+                    No
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>¿Actualmente trabaja?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="workingYes" name="is_working" value="1">
+                <label class="form-check-label" for="workingYes">
+                    Sí
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="workingNo" name="is_working" value="0">
+                <label class="form-check-label" for="workingNo">
+                    No
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>¿Desea llevar la materia de Ética?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="ethics_matterYes" name="ethics_matter" value="1" 
+                       onclick="switchVisibilityToHide('alert-ethics_matter');">
+                <label class="form-check-label" for="ethics_matterYes">
+                    Sí
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="ethics_matterNo" name="ethics_matter" value="0"
+                       onclick="switchVisibilityToShow('alert-ethics_matter');">
+                <label class="form-check-label" for="ethics_matterNo">
+                    No
+                </label>
+            </div>
+        </div>
+        <div id="alert-ethics_matter" class="alert alert-danger" role="alert"> <script>$('#alert-ethics_matter').hide();</script>
+            Debe aportar una carta firmada indicando que no desea llevar la materia de Ética
+        </div>
+
+
+        <div class="form-group">
+            <label>¿Desea llevar la materia de Sexualidad y Afectividad?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="sexual_matterYes" name="sexual_matter" value="1"
+                       onclick="switchVisibilityToHide('alert-sexual_matter');">
+                <label class="form-check-label" for="sexual_matterYes">
+                    Sí
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="sexual_matterNo" name="sexual_matter" value="0"
+                       onclick="switchVisibilityToShow('alert-sexual_matter');">
+                <label class="form-check-label" for="sexual_matterNo">
+                    No
+                </label>
+            </div>
+        </div>
+        <div id="alert-sexual_matter" class="alert alert-danger" role="alert"> <script>$('#alert-sexual_matter').hide();</script>
+            Debe aportar una carta firmada indicando que no desea llevar la materia de Sexualidad y Afectividad
+        </div>
+
+        <div class="form-group">
+            <label>¿Tiene alguna adecuación curricular?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="adequacySi" name="adequacy" value="1"
+                       onclick="switchVisibilityToShow('adequacy_container');">
+                <label class="form-check-label" for="adecuacionYes">
+                    Sí
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="adequacyNo" name="adequacy" value="0"
+                       onclick="switchVisibilityToHide('adequacy_container');">
+                <label class="form-check-label" for="adecuacionNo">
+                    No
+                </label>
+            </div>
+        </div>
+
+        <div id="adequacy_container"> <script>$('#adequacy_container').hide();</script>
+            <div class="form-group">
+                <label for="id_Adequacy">¿Qué tipo de adecuación tiene usted?</label>
+                <select class="form-control" id="id_Adequacy" name="id_adequacy">
+                    <option selected disabled>Seleccione una opción</option>
+                    <option value="1">De acceso (problemas físicos o de alguna discapacidad)</option>
+                    <option value="2">Adecuación no significativa</option>
+                    <option value="3">Adecuación significativa</option>
+                </select>
             </div>
         </div>
 
         <h4>Nivel a matricular</h4>
         <div class="form-group">
-            <label for="level">Nivel de matrícula</label>
-            <select class="form-control" id="level" name="level">
+            <label for="degree">Nivel de matrícula</label>
+            <select class="form-control" id="degree" name="degree">
                 <option selected disabled>Seleccione una opción</option>
-                <option value="7">Séptimo</option>
-                <option value="8">Octavo</option>
-                <option value="9">Noveno</option>
-                <option value="10">Décimo</option>
-                <option value="11">Undécimo</option>
+                <option value="7" onclick="hideDegrees(); switchVisibilityToShow('level7_container');">Séptimo</option>
+                <option value="8" onclick="hideDegrees(); switchVisibilityToShow('level8_container');">Octavo</option>
+                <option value="9" onclick="hideDegrees(); switchVisibilityToShow('level9_container');">Noveno</option>
+                <option value="10" onclick="hideDegrees();">Décimo</option>
+                <option value="11" onclick="hideDegrees(); switchVisibilityToShow('level11_container');">Undécimo</option>
             </select>
         </div>
-        <div id="level7">
+        <div id="level7_container"> <script>$('#level7_container').hide();</script>
             <h4>Secciones de séptimo</h4>
             <div class="form-group">
                 <label for="level_num7">Elija la sección donde desea matricular</label>
-                <select class="form-control" id="level_num7" name="level_num">
+                <select class="form-control" id="level_num7" name="id_section">
                     <option selected disabled>Seleccione una opción</option>
                     <option value="1">7-1 (Informática)</option>
                     <option value="2">7-2 (Contaduría)</option>
@@ -154,11 +227,11 @@ include_once 'public/header.php';
                 </select>
             </div>
         </div>
-        <div id="level8">
+        <div id="level8_container"> <script>$('#level8_container').hide();</script>
             <h4>Secciones de octavo</h4>
             <div class="form-group">
                 <label for="level_num8">Elija la sección donde desea matricular</label>
-                <select class="form-control" id="level_num8" name="level_num">
+                <select class="form-control" id="level_num8" name="id_section">
                     <option selected disabled>Seleccione una opción</option>
                     <option value="1">8-1 (Informática)</option>
                     <option value="2">8-2 (Contaduría)</option>
@@ -167,11 +240,11 @@ include_once 'public/header.php';
                 </select>
             </div>
         </div>
-        <div id="level9">
+        <div id="level9_container"> <script>$('#level9_container').hide();</script>
             <h4>Secciones de noveno</h4>
             <div class="form-group">
                 <label for="level_num9">Elija la sección donde desea matricular</label>
-                <select class="form-control" id="level_num9" name="level_num">
+                <select class="form-control" id="level_num9" name="id_section">
                     <option selected disabled>Seleccione una opción</option>
                     <option value="1">9-1 (Informática)</option>
                     <option value="2">9-2 (Contaduría)</option>
@@ -182,11 +255,11 @@ include_once 'public/header.php';
                 </select>
             </div>
         </div>
-        <div id="level11">
+        <div id="level11_container"> <script>$('#level11_container').hide();</script>
             <h4>Matrícula Undécimo</h4>
             <div class="form-group">
                 <label for="level_num10">Debe indicar en cual ciencia va a realizar el bachillerato</label>
-                <select class="form-control" id="level_num10" name="level_num">
+                <select class="form-control" id="level_num10" name="id_section">
                     <option selected disabled>Seleccione una opción</option>
                     <option value="1">Biología</option>
                     <option value="2">Física</option>
@@ -196,64 +269,34 @@ include_once 'public/header.php';
             </div>
         </div>
 
-        <h4>Adecuación curricular</h4>
-        <div class="form-group">
-            <label>¿Tiene alguna adecuación curricular?</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="adequacySi" name="adequacy" value="1">
-                <label class="form-check-label" for="adecuacionYes">
-                    Sí
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="adequacyNo" name="adequacy" value="0">
-                <label class="form-check-label" for="adecuacionNo">
-                    No
-                </label>
-            </div>
-        </div>
-
-        <div id="adequacy_section">
-            <div class="form-group">
-                <label for="id_Adequacy">¿Qué tipo de adecuación tiene usted?</label>
-                <select class="form-control" id="id_Adequacy" name="id_Adequacy">
-                    <option selected disabled>Seleccione una opción</option>
-                    <option value="1">De acceso (problemas físicos o de alguna discapacidad)</option>
-                    <option value="2">Adecuación no significativa</option>
-                    <option value="3">Adecuación significativa</option>
-                </select>
-            </div>
-        </div>
-
-
         <h4>Solicitud de servicios</h4>
         <div class="form-group">
             <label>Elija los servicios que usted solicitará formalmente en el Colegio (debe llenar y entregar toda la documentación que se le solicite en el colegio)</label>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1" id="service" name="id_Service">
+                <input class="form-check-input" type="checkbox" value="1" id="service" name="id_service" onclick="switchVisibility('route_container');">
                 <label class="form-check-label" for="service1">
                     Servicio de transporte
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="2" id="service" name="id_Service">
+                <input class="form-check-input" type="checkbox" value="2" id="service" name="id_service">
                 <label class="form-check-label" for="service2">
                     Servicio de comedor
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="3" id="service3" name="id_Service">
+                <input class="form-check-input" type="checkbox" value="3" id="service3" name="id_service">
                 <label class="form-check-label" for="service3">
                     Beca de FONABE
                 </label>
             </div>
             <small class="form-text text-muted">Puede marcar más de una opción o deje en blanco si no desea algún servicio</small>
         </div>
-        
-        <div id="route_section">
+
+        <div id="route_container"> <script>$('#route_container').hide();</script>
             <div class="form-group">
                 <label for="id_Route">¿Escoja una ruta para el servicio de transporte?</label>
-                <select class="form-control" id="id_Route" name="id_Route">
+                <select class="form-control" id="id_Route" name="id_route">
                     <option selected disabled>Seleccione una opción</option>
                     <option value="1">Bellavista</option>
                     <option value="2">Buenos Aires</option>
@@ -273,11 +316,6 @@ include_once 'public/header.php';
             <div>
                 <label>
                     - Portar y mostrar siempre el carné, la libreta y la camiseta.
-                </label>
-            </div>
-            <div>
-                <label>
-                    - Cumplir con el reglamento interno.
                 </label>
             </div>
             <div>
