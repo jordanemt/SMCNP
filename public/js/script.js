@@ -49,10 +49,12 @@ $(document).ready(function () {
         maxYear: parseInt(moment().format('YYYY'), 10)
     }, function (start) {
         var years = moment().diff(start, 'years');
-        if (years <= 19) {
+        if (years <= 18) {
             switchVisibilityToShow('is_teenage_father-container');
+            switchVisibilityToShow('encargado-container');
         } else {
             switchVisibilityToHide('is_teenage_father-container');
+            switchVisibilityToHide('encargado-container');
         }
     });
 

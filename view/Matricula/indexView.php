@@ -102,7 +102,7 @@ include_once 'public/header.php';
         </div>
         
         <div class="form-group">
-            <label for="id_neighborhood">Comunidad actual</label>
+            <label for="id_neighborhood">Distrito actual</label>
             <select class="form-control" id="comunidad" name="id_neighborhood">
                 <option selected disabled>Seleccione una opción</option>
                 <option value="1">Guápiles</option>
@@ -255,40 +255,43 @@ include_once 'public/header.php';
             <input type="text" class="form-control phone" id="contact_phone" name="contact_phone" placeholder="Ingrese el teléfono del contacto">
         </div>
         
-        <h4>Datos de padre, madre o encargado</h4>
-        <div class="form-group">
-            <label for="card-encargado">Cédula</label>
-            <input type="text" class="form-control card" id="card-encargado" name="card-encargado" placeholder="Ingrese la cédula">
-            <div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="card_type1-encargado" name="card-type-encargado" checked onclick="cardMask('card-encargado')">
-                    <label class="form-check-label" for="card_type1-encargado">Nacional</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="card_type2-encargado" name="card-type-encargado" onclick="unMask('card-encargado')">
-                    <label class="form-check-label" for="card_type2-encargado">Extranjero</label>
+        <div id="encargado-container">
+            <script>$('#encargado-container').hide();</script>
+            <h4>Datos de padre, madre o encargado</h4>
+            <div class="form-group">
+                <label for="card-encargado">Cédula</label>
+                <input type="text" class="form-control card" id="card-encargado" name="card-encargado" placeholder="Ingrese la cédula">
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="card_type1-encargado" name="card-type-encargado" checked onclick="cardMask('card-encargado')">
+                        <label class="form-check-label" for="card_type1-encargado">Nacional</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="card_type2-encargado" name="card-type-encargado" onclick="unMask('card-encargado')">
+                        <label class="form-check-label" for="card_type2-encargado">Extranjero</label>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="full_name-encargado">Nombre completo</label>
-            <input type="text" class="form-control" id="full_name-encargado" name="full_name-encargado" placeholder="Ingrese el nombre completo">
-        </div>
-        <div class="form-group">
-            <label for="nationality-encargado">Nacionalidad</label>
-            <input type="text" class="form-control" id="full_name-encargado" name="nationality-encargado" placeholder="Ingrese la nacionalidad">
-        </div>
-        <div class="form-group">
-            <label for="ocupation-encargado">Ocupación</label>
-            <input type="text" class="form-control" id="ocupation-encargado" name="ocupation-encargado" placeholder="Ingrese la ocupación">
-        </div>
-        <div class="form-group">
-            <label for="work_place-encargado">Lugar de trabajo</label>
-            <input type="text" class="form-control" id="work_place-encargado" name="work_place-encargado" placeholder="Ingrese el lugar de trabajo">
-        </div>
-        <div class="form-group">
-            <label for="phone-encargado">Teléfono</label>
-            <input type="text" class="form-control phone" id="phone-encargado" name="phone-encargado" placeholder="Ingrese el teléfono">
+            <div class="form-group">
+                <label for="full_name-encargado">Nombre completo</label>
+                <input type="text" class="form-control" id="full_name-encargado" name="full_name-encargado" placeholder="Ingrese el nombre completo">
+            </div>
+            <div class="form-group">
+                <label for="nationality-encargado">Nacionalidad</label>
+                <input type="text" class="form-control" id="full_name-encargado" name="nationality-encargado" placeholder="Ingrese la nacionalidad">
+            </div>
+            <div class="form-group">
+                <label for="ocupation-encargado">Ocupación</label>
+                <input type="text" class="form-control" id="ocupation-encargado" name="ocupation-encargado" placeholder="Ingrese la ocupación">
+            </div>
+            <div class="form-group">
+                <label for="work_place-encargado">Lugar de trabajo</label>
+                <input type="text" class="form-control" id="work_place-encargado" name="work_place-encargado" placeholder="Ingrese el lugar de trabajo">
+            </div>
+            <div class="form-group">
+                <label for="phone-encargado">Teléfono</label>
+                <input type="text" class="form-control phone" id="phone-encargado" name="phone-encargado" placeholder="Ingrese el teléfono">
+            </div>
         </div>
         
         <h4>Matricula</h4>
