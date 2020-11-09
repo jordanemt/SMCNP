@@ -102,8 +102,8 @@ include_once 'public/header.php';
         </div>
         
         <div class="form-group">
-            <label for="id_neighborhood">Distrito actual</label>
-            <select class="form-control" id="comunidad" name="id_neighborhood">
+            <label for="id_district">Distrito actual</label>
+            <select class="form-control" id="comunidad" name="id_district">
                 <option selected disabled>Seleccione una opción</option>
                 <option value="1">Guápiles</option>
                 <option value="2">La Rita</option>
