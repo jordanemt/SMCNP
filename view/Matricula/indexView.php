@@ -7,6 +7,11 @@ include_once 'public/header.php';
     <hr>
     <form id="matriculaForm">
         <h4>Datos personales</h4>
+        
+        <div class="d-none form-group">
+            <input type="text" class="form-control card" id="id_student" name="id_student" value="0">
+        </div>
+        
         <div class="form-group">
             <label for="card">Cédula</label>
             <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula">

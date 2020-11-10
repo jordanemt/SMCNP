@@ -1,20 +1,20 @@
 CREATE TABLE district(
 	id INT AUTO_INCREMENT,
-    name VARCHAR(30),
+    name VARCHAR(50),
 
     PRIMARY KEY(id)
 );
 
 CREATE TABLE adequacy(
 	id INT AUTO_INCREMENT,
-    name VARCHAR(30),
+    name VARCHAR(50),
 
     PRIMARY KEY(id)
 );
 
 CREATE TABLE route(
     id INT AUTO_INCREMENT,
-    cod VARCHAR(30),
+    cod VARCHAR(50),
     description VARCHAR(50),
 
     PRIMARY KEY(id)
@@ -22,11 +22,23 @@ CREATE TABLE route(
 
 CREATE TABLE service(
     id INT AUTO_INCREMENT,
-    name VARCHAR(30),
+    name VARCHAR(50),
     id_route INT,
 
     PRIMARY KEY(id),
     FOREIGN KEY(id_route) REFERENCES route(id)
+);
+
+CREATE TABLE parent(
+    id INT AUTO_INCREMENT,
+    card VARCHAR(30) UNIQUE,
+    full_name VARCHAR(80),
+    nacionality VARCHAR(30),
+    ocupation VARCHAR(30),
+    work_place VARCHAR(30),
+    phone VARCHAR(9),
+
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE student( 
@@ -53,11 +65,13 @@ CREATE TABLE student(
     is_ethics_matter BIT,
     contact_name VARCHAR(20),
     contact_phone VARCHAR(9),
+    id_parent INT,
     is_new_student BIT,
 
     PRIMARY KEY(id),
     FOREIGN KEY(id_district) REFERENCES district(id),
-    FOREIGN KEY(id_adequacy) REFERENCES adequacy(id)
+    FOREIGN KEY(id_adequacy) REFERENCES adequacy(id),
+    FOREIGN KEY(id_parent) REFERENCES parent(id)
 );
 
 CREATE TABLE student_service(
@@ -67,20 +81,6 @@ CREATE TABLE student_service(
     PRIMARY KEY(id_student, id_service),
     FOREIGN KEY(id_student) REFERENCES student(id),
     FOREIGN KEY(id_service) REFERENCES service(id)
-);
-
-CREATE TABLE parent(
-    id INT AUTO_INCREMENT,
-    id_student INT,
-    card VARCHAR(30) UNIQUE,
-    full_name VARCHAR(60),
-    nacionality VARCHAR(30),
-    ocupation VARCHAR(30),
-    work_place VARCHAR(30),
-    phone VARCHAR(9),
-
-    PRIMARY KEY(id),
-    FOREIGN KEY(id_student) REFERENCES student(id)
 );
 
 CREATE TABLE section(

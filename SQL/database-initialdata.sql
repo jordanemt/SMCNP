@@ -24,3 +24,24 @@ INSERT INTO route(cod, description) VALUES('6717', 'La Colonia, La Teresa, Ticab
 INSERT INTO service(name) VALUES('Servicio de transporte');
 INSERT INTO service(name) VALUES('Servicio de comedor');
 INSERT INTO service(name) VALUES('Beca de FONABE');
+
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(7, '7-1', 'Informática', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(7, '7-2', 'Contaduría', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(7, '7-3', 'Inglés', 25);
+
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(8, '8-1', 'Informática', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(8, '8-2', 'Contaduría', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(8, '8-3', 'Inglés', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(8, '8-4', 'Informática', 25);
+
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(9, '9-1', 'Informática', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(9, '9-2', 'Contaduría', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(9, '9-3', 'Inglés', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(9, '9-4', 'Informática', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(9, '9-5', 'Inglés', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(9, '9-6', 'Informática', 25);
+
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(11, '11-1', 'Biología', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(11, '11-2', 'Física', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(11, '11-3', 'Química', 25);
+INSERT INTO section(degree, name, workshops, current_quota) VALUES(11, '11-4', 'Biología', 25);
