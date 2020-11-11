@@ -1,3 +1,22 @@
+function createEnrollment() {
+//    if ($('#enrollment-form').valid()){
+//        alert($('#enrollment-form').serialize());
+        var url = "?controller=Matricula&action=enroll";
+        $.ajax({
+            url: url,
+            cache: false,
+            type: "POST",
+            data: $('#enrollment-form').serialize(),
+            success: function (data) {
+                alert(data);
+            },
+            error: function (error) {
+                alert(error.responseText);
+            }
+        });
+//    }
+}
+
 function switchVisibility(elementId) {
     if ($('#' + elementId).is(":visible")) {
         $('#' + elementId).hide();
@@ -24,6 +43,7 @@ function hideDegrees() {
 function showDegreeContainerSelected() {
     hideDegrees();
     switchVisibilityToShow('level' + $('#degree').val() + '_container');
+    $('#degree-error').hide();
 }
 
 function cardMask(cardId) {
