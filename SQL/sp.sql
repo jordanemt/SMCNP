@@ -48,8 +48,7 @@ BEGIN
     is_ethics_matter, 
     contact_name, 
     contact_phone, 
-    id_parent, 
-    is_new_student)
+    id_parent)
     VALUES(
         @card, 
         @name, 
@@ -199,6 +198,7 @@ CREATE PROCEDURE sp_create_enrollment(
 BEGIN
     INSERT INTO enrollment(id_student, id_section, _date, repeating_matters) 
         VALUES(@id_student, @id_section, @_date, @repeating_matters);
+    UPDATE section SET current_quota = current_quota -1 WHERE id = @id_section;
 END//
 
 CREATE PROCEDURE sp_read_all_adequacy()

@@ -7,7 +7,7 @@ CREATE TABLE district(
 
 CREATE TABLE adequacy(
 	id INT AUTO_INCREMENT,
-    name VARCHAR(50),
+    name VARCHAR(100),
 
     PRIMARY KEY(id)
 );
@@ -89,7 +89,7 @@ CREATE TABLE section(
     name VARCHAR(4),
     year INT,
     workshops VARCHAR(50),
-    current_quota INT,
+    current_quota INT CHECK (current_quota>-1),
 
     PRIMARY KEY(id)
 );
