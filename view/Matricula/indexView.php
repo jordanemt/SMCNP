@@ -9,7 +9,7 @@ include_once 'public/header.php';
         <h4>Datos personales</h4>
         
         <div class="d-none form-group">
-            <input type="text" class="form-control card" id="id_student" name="id_student" value="0">
+            <input type="text" class="form-control card" id="id" name="id" value="0">
         </div>
         
         <div class="form-group">
@@ -108,7 +108,7 @@ include_once 'public/header.php';
         
         <div class="form-group">
             <label for="id_district">Distrito actual</label>
-            <select class="form-control" id="comunidad" name="id_district">
+            <select class="form-control" id="id_district_student" name="id_district">
                 <option selected disabled>Seleccione una opción</option>
                 <option value="1">Guápiles</option>
                 <option value="2">La Rita</option>
@@ -129,14 +129,14 @@ include_once 'public/header.php';
         <div class="form-group">
             <label>¿Padece de alguna enfermedad?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="sufferingYes" name="is_suffering" value="1" 
+                <input class="form-check-input" type="radio" id="sufferingYes" 
                        onclick="switchVisibilityToShow('suffering_container')">
                 <label class="form-check-label" for="sufferingYes">
                     Sí
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="sufferingNo" name="is_suffering" value="0" 
+                <input class="form-check-input" type="radio" id="sufferingNo"
                        onclick="switchVisibilityToHide('suffering_container')">
                 <label class="form-check-label" for="sufferingNo">
                     No
@@ -151,14 +151,14 @@ include_once 'public/header.php';
         <div class="form-group">
             <label>¿Tiene alguna adecuación curricular?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="adequacySi" name="adequacy" value="1"
+                <input class="form-check-input" type="radio" id="adequacySi"
                        onclick="switchVisibilityToShow('adequacy_container');">
                 <label class="form-check-label" for="adecuacionYes">
                     Sí
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="adequacyNo" name="adequacy" value="0"
+                <input class="form-check-input" type="radio" id="adequacyNo"
                        onclick="switchVisibilityToHide('adequacy_container');">
                 <label class="form-check-label" for="adecuacionNo">
                     No
@@ -264,38 +264,38 @@ include_once 'public/header.php';
             <script>$('#encargado-container').hide();</script>
             <h4>Datos de padre, madre o encargado</h4>
             <div class="form-group">
-                <label for="card-encargado">Cédula</label>
-                <input type="text" class="form-control card" id="card-encargado" name="card-encargado" placeholder="Ingrese la cédula">
+                <label for="card_parent">Cédula</label>
+                <input type="text" class="form-control card" id="card_parent" name="card_parent" placeholder="Ingrese la cédula">
                 <div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="card_type1-encargado" name="card-type-encargado" checked onclick="cardMask('card-encargado')">
+                        <input class="form-check-input" type="radio" id="card_type1-encargado" name="card-type-encargado" checked onclick="cardMask('card_parent')">
                         <label class="form-check-label" for="card_type1-encargado">Nacional</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="card_type2-encargado" name="card-type-encargado" onclick="unMask('card-encargado')">
+                        <input class="form-check-input" type="radio" id="card_type2-encargado" name="card-type-encargado" onclick="unMask('card_parent')">
                         <label class="form-check-label" for="card_type2-encargado">Extranjero</label>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="full_name-encargado">Nombre completo</label>
-                <input type="text" class="form-control" id="full_name-encargado" name="full_name-encargado" placeholder="Ingrese el nombre completo">
+                <label for="full_name_parent">Nombre completo</label>
+                <input type="text" class="form-control" id="full_name_parent" name="full_name_parent" placeholder="Ingrese el nombre completo">
             </div>
             <div class="form-group">
-                <label for="nationality-encargado">Nacionalidad</label>
-                <input type="text" class="form-control" id="full_name-encargado" name="nationality-encargado" placeholder="Ingrese la nacionalidad">
+                <label for="nationality_parent">Nacionalidad</label>
+                <input type="text" class="form-control" id="full_name_parent" name="nationality_parent" placeholder="Ingrese la nacionalidad">
             </div>
             <div class="form-group">
-                <label for="ocupation-encargado">Ocupación</label>
-                <input type="text" class="form-control" id="ocupation-encargado" name="ocupation-encargado" placeholder="Ingrese la ocupación">
+                <label for="ocupation_parent">Ocupación</label>
+                <input type="text" class="form-control" id="ocupation_parent" name="ocupation_parent" placeholder="Ingrese la ocupación">
             </div>
             <div class="form-group">
-                <label for="work_place-encargado">Lugar de trabajo</label>
-                <input type="text" class="form-control" id="work_place-encargado" name="work_place-encargado" placeholder="Ingrese el lugar de trabajo">
+                <label for="work_place_parent">Lugar de trabajo</label>
+                <input type="text" class="form-control" id="work_place_parent" name="work_place_parent" placeholder="Ingrese el lugar de trabajo">
             </div>
             <div class="form-group">
-                <label for="phone-encargado">Teléfono</label>
-                <input type="text" class="form-control phone" id="phone-encargado" name="phone-encargado" placeholder="Ingrese el teléfono">
+                <label for="phone_parent">Teléfono</label>
+                <input type="text" class="form-control phone" id="phone_parent" name="phone_parent" placeholder="Ingrese el teléfono">
             </div>
         </div>
         
