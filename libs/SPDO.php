@@ -5,8 +5,10 @@ class SPDO extends PDO{
     
     public function __construct() {
        $config= Config::singleton();
+//       parent::__construct('mysql:host='.$config->get('dbhost').';dbname='.$config->get('dbname'),
+//               $config->get('dbuser'), $config->get('dbpass'));
        parent::__construct('mysql:host='.$config->get('dbhost').';dbname='.$config->get('dbname'),
-               $config->get('dbuser'), $config->get('dbpass'));
+               $config->get('dbuser'));
     }
     
     public static function singleton(){
