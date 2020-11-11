@@ -23,10 +23,8 @@ CREATE TABLE route(
 CREATE TABLE service(
     id INT AUTO_INCREMENT,
     name VARCHAR(50),
-    id_route INT,
 
-    PRIMARY KEY(id),
-    FOREIGN KEY(id_route) REFERENCES route(id)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE parent(
@@ -77,16 +75,19 @@ CREATE TABLE student(
 CREATE TABLE student_service(
     id_student INT,
     id_service INT,
+    id_route INT,
 
     PRIMARY KEY(id_student, id_service),
     FOREIGN KEY(id_student) REFERENCES student(id),
-    FOREIGN KEY(id_service) REFERENCES service(id)
+    FOREIGN KEY(id_service) REFERENCES service(id),
+    FOREIGN KEY(id_route) REFERENCES route(id)
 );
 
 CREATE TABLE section(
     id INT AUTO_INCREMENT,
     degree INT,
     name VARCHAR(4),
+    year INT,
     workshops VARCHAR(50),
     current_quota INT,
 
