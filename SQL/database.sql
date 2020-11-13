@@ -50,37 +50,37 @@ CREATE TABLE student(
     nationality VARCHAR(30),
     personal_phone VARCHAR(9),
     other_phone VARCHAR(9),
-    mep_mail VARCHAR(100) UNIQUE,
+    mep_mail VARCHAR(100),
     other_mail VARCHAR(100),
     id_district INT,
     direction VARCHAR(300),
-    suffering BIT,
+    suffering VARCHAR(100),
     id_adequacy INT,
-    is_imas_benefit BIT,
-    is_teenage_father BIT,
-    is_working BIT,
-    is_sexual_matter BIT,
-    is_ethics_matter BIT,
+    is_imas_benefit BOOLEAN,
+    is_teenage_father BOOLEAN,
+    is_working BOOLEAN,
+    is_sexual_matter BOOLEAN,
+    is_ethics_matter BOOLEAN,
     contact_name VARCHAR(20),
     contact_phone VARCHAR(9),
     id_parent INT,
-    is_new_student BIT,
+    id_route INT,
+    is_new_student BOOLEAN,
 
     PRIMARY KEY(id),
     FOREIGN KEY(id_district) REFERENCES district(id),
     FOREIGN KEY(id_adequacy) REFERENCES adequacy(id),
-    FOREIGN KEY(id_parent) REFERENCES parent(id)
+    FOREIGN KEY(id_parent) REFERENCES parent(id),
+    FOREIGN KEY(id_route) REFERENCES route(id)
 );
 
 CREATE TABLE student_service(
     id_student INT,
     id_service INT,
-    id_route INT,
 
     PRIMARY KEY(id_student, id_service),
     FOREIGN KEY(id_student) REFERENCES student(id),
-    FOREIGN KEY(id_service) REFERENCES service(id),
-    FOREIGN KEY(id_route) REFERENCES route(id)
+    FOREIGN KEY(id_service) REFERENCES service(id)
 );
 
 CREATE TABLE section(

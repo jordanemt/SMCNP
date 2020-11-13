@@ -9,7 +9,7 @@ include_once 'public/header.php';
         <h4>Datos personales</h4>
 
         <div class="d-none form-group">
-            <input type="text" class="form-control card" id="id" name="id" value="0">
+            <input type="text" class="form-control card" id="id" name="id">
         </div>
 
         <div class="form-group">
@@ -17,11 +17,11 @@ include_once 'public/header.php';
             <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" required>
             <div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="card_type1" checked onclick="cardMask('card')">
+                    <input class="form-check-input" type="radio" id="card_type1" checked onclick="cardMask('card')" name="card_type">
                     <label class="form-check-label" for="card_type1">Nacional</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="card_type2" onclick="unMask('card')">
+                    <input class="form-check-input" type="radio" id="card_type2" onclick="unMask('card')" name="card_type">
                     <label class="form-check-label" for="card_type2">Extranjero</label>
                 </div>
             </div>
@@ -275,7 +275,7 @@ include_once 'public/header.php';
             <h4>Datos de padre, madre o encargado</h4>
 
             <div class="d-none form-group">
-                <input type="text" class="form-control card" id="id_parent" name="id_parent" value="0">
+                <input type="text" class="form-control" id="id_parent" name="id_parent" required>
             </div>
             
             <div class="form-group">
@@ -283,11 +283,11 @@ include_once 'public/header.php';
                 <input type="text" class="form-control card" id="card_parent" name="card_parent" placeholder="Ingrese la cédula" required>
                 <div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="card_type1-encargado" checked onclick="cardMask('card_parent')">
+                        <input class="form-check-input" type="radio" id="card_type1-encargado" checked onclick="cardMask('card_parent')" name="card_parent_type">
                         <label class="form-check-label" for="card_type1-encargado">Nacional</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="card_type2-encargado" onclick="unMask('card_parent')">
+                        <input class="form-check-input" type="radio" id="card_type2-encargado" onclick="unMask('card_parent')" name="card_parent_type">
                         <label class="form-check-label" for="card_type2-encargado">Extranjero</label>
                     </div>
                 </div>
@@ -399,7 +399,7 @@ include_once 'public/header.php';
             </div>
             <label id="is_repeating_matters-error" class="error" for="is_repeating_matters" style="display: none"></label>
         </div>
-
+        
         <div id='repeating_matters-container' class="form-group"> <script>$('#repeating_matters-container').hide();</script>
             <label for="repeating_matters">Seleccione las materias que repite o no ha ganado</label>
             <select class="form-control" id="repeating_matters" name="repeating_matters[]" title="Seleccione una o varias opciones" multiple required>

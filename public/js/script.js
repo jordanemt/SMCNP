@@ -1,7 +1,7 @@
 function createEnrollment() {
 //    if ($('#enrollment-form').valid()){
 //        alert($('#enrollment-form').serialize());
-        var url = "?controller=Matricula&action=enroll";
+        var url = "?controller=Enrollment&action=enroll";
         $.ajax({
             url: url,
             cache: false,

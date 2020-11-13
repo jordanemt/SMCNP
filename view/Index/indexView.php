@@ -33,7 +33,7 @@ include_once 'public/header.php';
                 NOTA IMPORTANTE: Este registro quedará anulado si la información suministrada no es CORRECTA o bien no cumple con los requisitos antes mencionados.
             </div>
             <div class="d-flex justify-content-center">
-                <a href="?controller=Matricula" class="btn btn-primary btn-lg btn-block button col-sm-6">Ir al formulario</a>
+                <a href="?controller=Enrollment" class="btn btn-primary btn-lg btn-block button col-sm-6">Ir al formulario</a>
             </div>
         </div>
     </div>
