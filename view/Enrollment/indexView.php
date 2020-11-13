@@ -112,14 +112,15 @@ include_once 'public/header.php';
             <label for="id_district">Distrito actual</label>
             <select class="form-control" id="id_district" name="id_district" onchange="$('#id_district-error').hide();" required>
                 <option selected disabled>Seleccione una opción</option>
-                <option value="1">Guápiles</option>
-                <option value="2">La Rita</option>
-                <option value="3">Roxana</option>
-                <option value="4">La Colonia - La Teresa</option>
-                <option value="5">Jiménez</option>
-                <option value="6">Cariari</option>
-                <option value="7">San Antonio</option>
-                <option value="8">Bella Vista - Buenos Aires</option>
+                <?php
+                foreach ($vars['district_list'] as $item) {
+                    ?>
+
+                    <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
+
+                    <?php
+                }
+                ?>
             </select>
             <label id="id_district-error" class="error" for="id_district" style="display: none"></label>
         </div>
@@ -175,9 +176,15 @@ include_once 'public/header.php';
                 <label for="id_adequacy">¿Qué tipo de adecuación tiene usted?</label>
                 <select class="form-control" id="id_adequacy" name="id_adequacy" required>
                     <option selected disabled>Seleccione una opción</option>
-                    <option value="1">De acceso (problemas físicos o de alguna discapacidad)</option>
-                    <option value="2">Adecuación no significativa</option>
-                    <option value="3">Adecuación significativa</option>
+                    <?php
+                    foreach ($vars['adequacy_list'] as $item) {
+                        ?>
+
+                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] ?></option>
+
+                        <?php
+                    }
+                    ?>
                 </select>
             </div>
             <label id="id_adequacy-error" class="error" for="id_adequacy" style="display: none"></label>
@@ -332,9 +339,15 @@ include_once 'public/header.php';
                 <label for="level_num7">Elija la sección donde desea matricular</label>
                 <select class="form-control" id="level_num7" name="id_section" onchange="$('#level_num7-error').hide();" required>
                     <option selected disabled>Seleccione una opción</option>
-                    <option value="1">7-1 (Informática)</option>
-                    <option value="2">7-2 (Contaduría)</option>
-                    <option value="3">7-3 (Inglés)</option>
+                    <?php
+                    foreach ($vars['degree7'] as $item) {
+                        ?>
+
+                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
+
+                        <?php
+                    }
+                    ?>
                 </select>
             </div>
             <label id="level_num7-error" class="error" for="level_num7" style="display: none"></label>
@@ -344,10 +357,15 @@ include_once 'public/header.php';
                 <label for="level_num8">Elija la sección donde desea matricular</label>
                 <select class="form-control" id="level_num8" name="id_section" onchange="$('#level_num8-error').hide();" required>
                     <option selected disabled>Seleccione una opción</option>
-                    <option value="1">8-1 (Informática)</option>
-                    <option value="2">8-2 (Contaduría)</option>
-                    <option value="3">8-3 (Inglés)</option>
-                    <option value="4">8-4 (Informática)</option>
+                    <?php
+                    foreach ($vars['degree8'] as $item) {
+                        ?>
+
+                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
+
+                        <?php
+                    }
+                    ?>
                 </select>
             </div>
             <label id="level_num8-error" class="error" for="level_num8" style="display: none"></label>
@@ -357,12 +375,15 @@ include_once 'public/header.php';
                 <label for="level_num9">Elija la sección donde desea matricular</label>
                 <select class="form-control" id="level_num9" name="id_section" onchange="$('#level_num9-error').hide();" required>
                     <option selected disabled>Seleccione una opción</option>
-                    <option value="1">9-1 (Informática)</option>
-                    <option value="2">9-2 (Contaduría)</option>
-                    <option value="3">9-3 (Inglés)</option>
-                    <option value="4">9-4 (Informática)</option>
-                    <option value="5">9-5 (Inglés)</option>
-                    <option value="6">9-6 (Informática)</option>
+                    <?php
+                    foreach ($vars['degree9'] as $item) {
+                        ?>
+
+                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
+
+                        <?php
+                    }
+                    ?>
                 </select>
             </div>
             <label id="level_num7-error" class="error" for="level_num9" style="display: none"></label>
@@ -372,10 +393,15 @@ include_once 'public/header.php';
                 <label for="level_num11">Debe indicar en cual ciencia va a realizar el bachillerato</label>
                 <select class="form-control" id="level_num11" name="id_section" onchange="$('#level_num11-error').hide();" required>
                     <option selected disabled>Seleccione una opción</option>
-                    <option value="1">Biología</option>
-                    <option value="2">Física</option>
-                    <option value="3">Química</option>
-                    <option value="3">Biología</option>
+                    <?php
+                    foreach ($vars['degree11'] as $item) {
+                        ?>
+
+                        <option value="<?php echo $item['id'] ?>"><?php echo $item['workshops'] . ' ' . $item['current_quota'] ?></option>
+
+                        <?php
+                    }
+                    ?>
                 </select>
             </div>
             <label id="level_num11-error" class="error" for="level_num11" style="display: none"></label>
@@ -421,25 +447,21 @@ include_once 'public/header.php';
         <h4>Solicitud de servicios</h4>
         <div class="form-group">
             <label>Elija los servicios que usted solicitará formalmente en el Colegio (debe llenar y entregar toda la documentación que se le solicite en el colegio)</label>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="1" id="service" name="id_service[]" 
-                       onclick="switchVisibility('route_container');">
-                <label class="form-check-label" for="service1">
-                    Servicio de transporte
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="2" id="service" name="id_service[]">
-                <label class="form-check-label" for="service2">
-                    Servicio de comedor
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="3" id="service3" name="id_service[]">
-                <label class="form-check-label" for="service3">
-                    Beca de FONABE
-                </label>
-            </div>
+            <?php
+            foreach ($vars['service_list'] as $item) {
+                ?>
+            
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="<?php echo $item['id'] ?>" name="id_service[]" 
+                           <?php if ($item['id'] == 1) { ?> onclick="switchVisibility('route_container');" <?php } ?>>
+                    <label class="form-check-label" for="service1">
+                        <?php echo $item['name'] ?>
+                    </label>
+                </div>
+
+                <?php
+            }
+            ?>
             <small class="form-text text-muted">Puede marcar más de una opción o deje en blanco si no desea algún servicio</small>
         </div>
 
@@ -448,15 +470,15 @@ include_once 'public/header.php';
                 <label for="id_Route">¿Escoja una ruta para el servicio de transporte?</label>
                 <select class="form-control" id="id_route" name="id_route" required>
                     <option selected disabled>Seleccione una opción</option>
-                    <option value="1">Bellavista</option>
-                    <option value="2">Buenos Aires</option>
-                    <option value="3">Toro Amarillo-La Unión</option>
-                    <option value="4">Suerre</option>
-                    <option value="5">Sauces</option>
-                    <option value="6">San Luis, Jiménez, San Martín</option>
-                    <option value="7">Campo 2, Cariari</option>
-                    <option value="8">La Rita, Roxana, El Humo</option>
-                    <option value="9">La Colonia, La Teresa, Ticabán 1</option>
+                    <?php
+                    foreach ($vars['route_list'] as $item) {
+                        ?>
+
+                        <option value="<?php echo $item['id'] ?>"><?php echo $item['description'] ?></option>
+
+                        <?php
+                    }
+                    ?>
                 </select>
                 <label id="id_route-error" class="error" for="id_route" style="display: none"></label>
             </div>

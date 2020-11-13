@@ -1,20 +1,34 @@
 <?php
+require 'model/EnrollmentModel.php';
 
 class EnrollmentController {
 
     public function __construct() {
         $this->view = new View();
         $this->controllerName = 'Enrollment/';
+        $this->model = new EnrollmentModel();
     }
 
     public function index() {
-        $this->view->show($this->controllerName . 'indexView.php', null);
+        $vars['district_list'] = $this->model->getAllDistrict();
+        $vars['adequacy_list'] = $this->model->getAllAdequacy();
+        $section_list = $this->model->getAllSection();
+        
+        $vars['degree7'] = array();
+        $vars['degree8'] = array();
+        $vars['degree9'] = array();
+        $vars['degree11'] = array();
+        foreach ($section_list as $section) {
+            array_push($vars['degree' . $section['degree']], $section);
+        }
+        
+        $vars['service_list'] = $this->model->getAllService();
+        $vars['route_list'] = $this->model->getAllRoute();
+        
+        $this->view->show($this->controllerName . 'indexView.php', $vars);
     }
 
-    public function enroll() {
-        require_once 'model/EnrollmentModel.php';
-        $enroll = new EnrollmentModel();
-        
+    public function enroll() {        
         //get student
         $id = filter_input(INPUT_POST, 'id');
         $card = filter_input(INPUT_POST, 'card');
@@ -83,7 +97,7 @@ class EnrollmentController {
         $id_service_list = filter_input_array(INPUT_POST, $filter)['id_service'];//save as mn relation in data persistance
         $id_route = filter_input(INPUT_POST, 'id_route');
         
-        echo $enroll->enroll(
+        echo $this->model->enroll(
                 $id, $card, $name, $first_lastname, $second_lastname, $birtdate,
                 $gender, $nationality, $personal_phone, $other_phone, $mep_mail, 
                 $other_mail, $id_district, $direction, $suffering, $id_adequacy, 

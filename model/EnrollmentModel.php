@@ -8,6 +8,46 @@ class EnrollmentModel {
         require 'libs/SPDO.php';
         $this->db = SPDO::singleton();
     }
+    
+    public function getAllDistrict() {
+        $query = $this->db->prepare("CALL sp_read_all_district ()");
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result;
+    }
+    
+    public function getAllAdequacy() {
+        $query = $this->db->prepare("CALL sp_read_all_adequacy ()");
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result;
+    }
+    
+    public function getAllSection() {
+        $query = $this->db->prepare("CALL sp_read_all_section ()");
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result;
+    }
+    
+    public function getAllService() {
+        $query = $this->db->prepare("CALL sp_read_all_service ()");
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result;
+    }
+    
+    public function getAllRoute() {
+        $query = $this->db->prepare("CALL sp_read_all_route ()");
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result;
+    }
 
     public function enroll(
             $id, $card, $name, $first_lastname, $second_lastname, $birtdate, $gender,

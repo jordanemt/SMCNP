@@ -223,9 +223,9 @@ BEGIN
     SELECT* FROM route;
 END//
 
-CREATE PROCEDURE sp_read_all_by_year_section(year int)
+CREATE PROCEDURE sp_read_all_section()
 BEGIN
-    SELECT* FROM section WHERE year = year;
+    SELECT* FROM section;
 END//
 
 CREATE PROCEDURE sp_read_all_service()
