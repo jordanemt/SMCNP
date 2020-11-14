@@ -61,7 +61,7 @@ CREATE TABLE student(
     is_working BOOLEAN,
     is_sexual_matter BOOLEAN,
     is_ethics_matter BOOLEAN,
-    contact_name VARCHAR(20),
+    contact_name VARCHAR(80),
     contact_phone VARCHAR(9),
     id_parent INT,
     id_route INT,
@@ -86,7 +86,7 @@ CREATE TABLE student_service(
 CREATE TABLE section(
     id INT AUTO_INCREMENT,
     degree INT,
-    name VARCHAR(4),
+    name VARCHAR(5),
     year INT,
     workshops VARCHAR(50),
     current_quota INT CHECK (current_quota>-1),

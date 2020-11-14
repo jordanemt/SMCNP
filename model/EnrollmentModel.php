@@ -48,6 +48,24 @@ class EnrollmentModel {
         $query->closeCursor();
         return $result;
     }
+    
+    public function getStudentByCard($card) {
+        $query = $this->db->prepare("CALL sp_read_student_by_card (?)");
+        $query->bindParam(1, $card);
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        if (!empty($result)) return $result[0];
+    }
+    
+    public function getParentByCard($card) {
+        $query = $this->db->prepare("CALL sp_read_parent_by_card (?)");
+        $query->bindParam(1, $card);
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        if (!empty($result)) return $result[0];
+    }
 
     public function enroll(
             $id, $card, $name, $first_lastname, $second_lastname, $birtdate, $gender,
@@ -62,7 +80,22 @@ class EnrollmentModel {
     ) {
         try {
             $this->db->beginTransaction();
-
+            
+            //check student dont do enroll
+            if ($id != "") {
+                $query = $this->db->prepare("CALL sp_read_all_enrollment ()");
+                $query->execute();
+                $enrollment_list = $query->fetchAll();
+                $query->closeCursor();
+                foreach ($enrollment_list as $enroll) {
+                    $year = date_format(date_create_from_format('Y-m-d', $enroll['_date']), "Y");
+                    if ($year == date("Y") && $id == $enroll['id_student']) {
+                        throw new Exception('Usted ya realizó una matricula');
+                        die();
+                    }
+                }
+            }
+            
             //insert_udpate parent
             if ($id_parent == "" && $card_parent != "") {
                 $queryParent = $this->db->prepare("CALL sp_create_parent (?,?,?,?,?,?)");
@@ -157,7 +190,13 @@ class EnrollmentModel {
             $queryEnrollment->bindParam(3, $_date);
             $queryEnrollment->bindParam(4, $repeating_matters);
             $queryEnrollment->execute();
+            $id_enrollment = $queryEnrollment->fetchAll()[0]['id'];
             $queryEnrollment->closeCursor();
+            
+            $queryDeleteServices = $this->db->prepare("CALL sp_delete_student_service_by_student_id (?)");
+            $queryDeleteServices->bindParam(1, $id);
+            $queryDeleteServices->execute();
+            $queryDeleteServices->closeCursor();
             
             if ($id_service_list ==! null) {
                 foreach ($id_service_list as $id_service) {
@@ -168,11 +207,12 @@ class EnrollmentModel {
                     $queryService->closeCursor();
                 }
             }
-
+            
             $this->db->commit();
+            return $id_enrollment;
         } catch (Exception $e) {
             $this->db->rollBack();
-            return 'error';
+            throw $e;
         }
     }
 

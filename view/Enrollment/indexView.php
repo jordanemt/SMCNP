@@ -14,7 +14,7 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="card">Cédula</label>
-            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" required>
+            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" minlength="9" onchange="getStudentByCard()" required>
             <div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" id="card_type1" checked onclick="cardMask('card')" name="card_type">
@@ -29,29 +29,34 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese su nombre" required>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese su nombre" maxlength="40" required>
         </div>
 
         <div class="form-group">
             <label for="first_lastname">Primer apellido</label>
-            <input type="text" class="form-control" id="first_lastname" name="first_lastname" placeholder="Ingrese su primer apellido"  required>
+            <input type="text" class="form-control" id="first_lastname" name="first_lastname" placeholder="Ingrese su primer apellido" maxlength="20" required>
         </div>
 
         <div class="form-group">
             <label for="second_lastname">Segundo apellido</label>
-            <input type="text" class="form-control" id="second_lastname" name="second_lastname" placeholder="Ingrese su segundo apellido"  required>
+            <input type="text" class="form-control" id="second_lastname" name="second_lastname" placeholder="Ingrese su segundo apellido" maxlength="20" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="birthdate">Fecha de nacimiento</label>
+            <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="Ingrese su fecha de nacimiento" readonly required>
         </div>
 
         <div class="form-group">
             <label>Sexo</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="gender_Femenino" name="gender" value="Femenino" required>
+                <input class="form-check-input" type="radio" id="gender_Femenino" name="gender" value="FEMENINO" required>
                 <label class="form-check-label" for="gender_Femenino">
                     Femenino
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="gender_Masculino" name="gender" value="Masculino" required>
+                <input class="form-check-input" type="radio" id="gender_Masculino" name="gender" value="MASCULINO" required>
                 <label class="form-check-label" for="gender_Masculino">
                     Masculino
                 </label>
@@ -60,51 +65,29 @@ include_once 'public/header.php';
         </div>
 
         <div class="form-group">
-            <label for="birthdate">Fecha de nacimiento</label>
-            <input type="text" class="form-control" id="birthdate" name="birthdate" placeholder="Ingrese su fecha de nacimiento" required>
-        </div>
-
-        <div id="is_teenage_father-container" class="form-group"> <script>$('#is_teenage_father-container').hide();</script>
-            <label>¿Es madre o padre adolescente (menor que 19 años)?</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="teenage_fatherYes" name="is_teenage_father" value="1" required>
-                <label class="form-check-label" for="teenage_fatherYes">
-                    Sí
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" id="teenage_fatherNo" name="is_teenage_father" value="0" required>
-                <label class="form-check-label" for="teenage_fatherNo">
-                    No
-                </label>
-            </div>
-            <label id="is_teenage_father-error" class="error" for="is_teenage_father" style="display: none"></label>
-        </div>
-
-        <div class="form-group">
             <label for="nationality">Nacionalidad</label>
-            <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Ingrese su nacionalidad" required>
+            <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Ingrese su nacionalidad" maxlength="30" required>
         </div>
 
         <div class="form-group">
             <label for="personal_phone">Número de teléfono</label>
-            <input type="text" class="form-control phone" id="personal_phone" name="personal_phone" placeholder="Ingrese su número de teléfono" required>
+            <input type="text" class="form-control phone" id="personal_phone" name="personal_phone" placeholder="Ingrese su número de teléfono" minlength="9" required>
         </div>
 
         <div class="form-group">
             <label for="other_phone">Otro teléfono</label>
-            <input type="text" class="form-control phone" id="other_phone" name="other_phone" placeholder="Ingrese otro número de teléfono">
+            <input type="text" class="form-control phone" id="other_phone" name="other_phone" placeholder="Ingrese otro número de teléfono" minlength="9">
             <small class="form-text text-muted">Opcional</small>
         </div>
 
         <div class="form-group">
             <label for="mep_mail">Correo del MEP</label>
-            <input type="text" class="form-control" id="mep_mail" name="mep_mail" placeholder="Ingrese su correo del MEP" required>
+            <input type="email" class="form-control" id="mep_mail" name="mep_mail" placeholder="Ingrese su correo del MEP" maxlength="100" required>
         </div>
 
         <div class="form-group">
             <label for="other_mail">Otro correo</label>
-            <input type="text" class="form-control" id="other_mail" name="other_mail" placeholder="Ingrese otro correo">
+            <input type="email" class="form-control" id="other_mail" name="other_mail" placeholder="Ingrese otro correo" maxlength="100">
             <small class="form-text text-muted">Opcional</small>
         </div>
 
@@ -127,7 +110,33 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="direction">Dirección de exacta</label>
-            <textarea class="form-control" id="direction" name="direction" placeholder="Ingrese la dirección" required></textarea>
+            <textarea class="form-control" id="direction" name="direction" placeholder="Ingrese la dirección" maxlength="300" required></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="contact_name">Nombre completo de un contacto de emergencia</label>
+            <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Ingrese el nombre completo del contacto" required>
+        </div>
+        <div class="form-group">
+            <label for="contact_phone">Teléfono del contacto de emergencia</label>
+            <input type="text" class="form-control phone" id="contact_phone" name="contact_phone" placeholder="Ingrese el teléfono del contacto" required>
+        </div>
+        
+        <div id="is_teenage_father-container" class="form-group"> <script>$('#is_teenage_father-container').hide();</script>
+            <label>¿Es madre o padre adolescente (menor que 19 años)?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="teenage_fatherYes" name="is_teenage_father" value="1" required>
+                <label class="form-check-label" for="teenage_fatherYes">
+                    Sí
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" id="teenage_fatherNo" name="is_teenage_father" value="0" required>
+                <label class="form-check-label" for="teenage_fatherNo">
+                    No
+                </label>
+            </div>
+            <label id="is_teenage_father-error" class="error" for="is_teenage_father" style="display: none"></label>
         </div>
 
         <div class="form-group">
@@ -150,13 +159,13 @@ include_once 'public/header.php';
         </div>
         <div id="suffering_container" class="form-group"> <script>$('#suffering_container').hide();</script>
             <label for="suffering">¿Qué enfermedad?</label>
-            <input type="text" class="form-control" id="suffering" name="suffering" placeholder="Ingrese la enfermedad" required>
+            <input type="text" class="form-control" id="suffering" name="suffering" placeholder="Ingrese la enfermedad" maxlength="100" required>
         </div>
 
         <div class="form-group">
             <label>¿Tiene alguna adecuación curricular?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="adequacySi" name="is_adequacy"
+                <input class="form-check-input" type="radio" id="adequacyYes" name="is_adequacy"
                        onclick="switchVisibilityToShow('adequacy_container');" required>
                 <label class="form-check-label" for="adecuacionYes">
                     Sí
@@ -268,15 +277,6 @@ include_once 'public/header.php';
             Debe aportar una carta firmada indicando que no desea llevar la materia de Sexualidad y Afectividad
         </div>
 
-        <div class="form-group">
-            <label for="contact_name">Nombre completo de un contacto de emergencia</label>
-            <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Ingrese el nombre completo del contacto" required>
-        </div>
-        <div class="form-group">
-            <label for="contact_phone">Teléfono del contacto de emergencia</label>
-            <input type="text" class="form-control phone" id="contact_phone" name="contact_phone" placeholder="Ingrese el teléfono del contacto" required>
-        </div>
-
         <div id="encargado-container">
             <script>$('#encargado-container').hide();</script>
             <h4>Datos de padre, madre o encargado</h4>
@@ -287,7 +287,7 @@ include_once 'public/header.php';
             
             <div class="form-group">
                 <label for="card_parent">Cédula</label>
-                <input type="text" class="form-control card" id="card_parent" name="card_parent" placeholder="Ingrese la cédula" required>
+                <input type="text" class="form-control card" id="card_parent" name="card_parent" placeholder="Ingrese la cédula" minlength="9" onchange="getParentByCard();" required>
                 <div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="card_type1-encargado" checked onclick="cardMask('card_parent')" name="card_parent_type">
@@ -301,23 +301,23 @@ include_once 'public/header.php';
             </div>
             <div class="form-group">
                 <label for="full_name_parent">Nombre completo</label>
-                <input type="text" class="form-control" id="full_name_parent" name="full_name_parent" placeholder="Ingrese el nombre completo" required>
+                <input type="text" class="form-control" id="full_name_parent" name="full_name_parent" placeholder="Ingrese el nombre completo" maxlength="80" required>
             </div>
             <div class="form-group">
                 <label for="nationality_parent">Nacionalidad</label>
-                <input type="text" class="form-control" id="nationality_parent" name="nationality_parent" placeholder="Ingrese la nacionalidad" required>
+                <input type="text" class="form-control" id="nationality_parent" name="nationality_parent" placeholder="Ingrese la nacionalidad" maxlength="30" required>
             </div>
             <div class="form-group">
                 <label for="ocupation_parent">Ocupación</label>
-                <input type="text" class="form-control" id="ocupation_parent" name="ocupation_parent" placeholder="Ingrese la ocupación" required>
+                <input type="text" class="form-control" id="ocupation_parent" name="ocupation_parent" placeholder="Ingrese la ocupación" maxlength="30" required>
             </div>
             <div class="form-group">
                 <label for="work_place_parent">Lugar de trabajo</label>
-                <input type="text" class="form-control" id="work_place_parent" name="work_place_parent" placeholder="Ingrese el lugar de trabajo" required>
+                <input type="text" class="form-control" id="work_place_parent" name="work_place_parent" placeholder="Ingrese el lugar de trabajo" maxlength="30" required>
             </div>
             <div class="form-group">
                 <label for="phone_parent">Teléfono</label>
-                <input type="text" class="form-control phone" id="phone_parent" name="phone_parent" placeholder="Ingrese el teléfono" required>
+                <input type="text" class="form-control phone" id="phone_parent" name="phone_parent" placeholder="Ingrese el teléfono" minlength="9" required>
             </div>
         </div>
 
@@ -386,7 +386,25 @@ include_once 'public/header.php';
                     ?>
                 </select>
             </div>
-            <label id="level_num7-error" class="error" for="level_num9" style="display: none"></label>
+            <label id="level_num9-error" class="error" for="level_num9" style="display: none"></label>
+        </div>
+        <div id="level10_container"> <script>$('#level10_container').hide();</script>
+            <div class="form-group">
+                <label for="level_num10">Elija la sección donde desea matricular</label>
+                <select class="form-control" id="level_num10" name="id_section" onchange="$('#level_num10-error').hide();" required>
+                    <option selected disabled>Seleccione una opción</option>
+                    <?php
+                    foreach ($vars['degree10'] as $item) {
+                        ?>
+
+                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' ' . $item['current_quota'] ?></option>
+
+                        <?php
+                    }
+                    ?>
+                </select>
+            </div>
+            <label id="level_num10-error" class="error" for="level_num10" style="display: none"></label>
         </div>
         <div id="level11_container"> <script>$('#level11_container').hide();</script>
             <div class="form-group">

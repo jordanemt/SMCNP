@@ -21,7 +21,7 @@ CREATE PROCEDURE sp_create_student(
     is_working BOOLEAN,
     is_sexual_matter BOOLEAN,
     is_ethics_matter BOOLEAN,
-    contact_name VARCHAR(20),
+    contact_name VARCHAR(80),
     contact_phone VARCHAR(9),
     id_route INT,
     id_parent INT)
@@ -83,13 +83,13 @@ BEGIN
 END//
 
 CREATE PROCEDURE sp_read_student_by_card(
-    card VARCHAR(30))
+    _card VARCHAR(30))
 BEGIN
-    SELECT* FROM student WHERE card = card;
+    SELECT* FROM student WHERE card = _card;
 END//
 
 CREATE PROCEDURE sp_update_student(
-    id INT,
+    _id INT,
     name VARCHAR(40), 
     first_lastname VARCHAR(20), 
     second_lastname VARCHAR(20), 
@@ -102,7 +102,7 @@ CREATE PROCEDURE sp_update_student(
     other_mail VARCHAR(100),
     id_district INT,
     direction VARCHAR(300),
-    suffering BOOLEAN,
+    suffering VARCHAR(100),
     id_adequacy INT,
     is_imas_benefit BOOLEAN,
     is_teenage_father BOOLEAN,
@@ -139,7 +139,7 @@ BEGIN
         id_parent = id_parent, 
         id_route = id_route,
         is_new_student = 0
-    WHERE id = id;
+    WHERE id = _id;
 END//
 
 CREATE PROCEDURE sp_create_parent( 
@@ -168,13 +168,13 @@ BEGIN
 END//
 
 CREATE PROCEDURE sp_read_parent_by_card(
-    card VARCHAR(30))
+    _card VARCHAR(30))
 BEGIN
-    SELECT* FROM parent WHERE card = card;
+    SELECT* FROM parent WHERE card = _card;
 END//
 
 CREATE PROCEDURE sp_update_parent(
-    id INT, 
+    _id INT, 
     full_name VARCHAR(80), 
     nacionality VARCHAR(30), 
     ocupation VARCHAR(30), 
@@ -187,7 +187,7 @@ BEGIN
         ocupation = ocupation,
         work_place = work_place,
         phone = phone
-    WHERE id = id;
+    WHERE id = _id;
 END//
 
 CREATE PROCEDURE sp_create_student_service(
@@ -195,6 +195,12 @@ CREATE PROCEDURE sp_create_student_service(
     id_service INT)
 BEGIN
     INSERT INTO student_service(id_student, id_service) VALUES(id_student, id_service);
+END//
+
+CREATE PROCEDURE sp_delete_student_service_by_student_id(
+    id INT)
+BEGIN
+    DELETE FROM student_service WHERE id_student = id;
 END//
 
 CREATE PROCEDURE sp_create_enrollment(
@@ -206,6 +212,12 @@ BEGIN
     INSERT INTO enrollment(id_student, id_section, _date, repeating_matters) 
         VALUES(id_student, id_section, _date, repeating_matters);
     UPDATE section SET current_quota = current_quota - 1 WHERE id = id_section;
+    SELECT LAST_INSERT_ID() as id; 
+END//
+
+CREATE PROCEDURE sp_read_all_enrollment()
+BEGIN
+    SELECT* FROM enrollment;
 END//
 
 CREATE PROCEDURE sp_read_all_adequacy()
