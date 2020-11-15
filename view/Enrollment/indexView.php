@@ -14,7 +14,7 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="card">Cédula</label>
-            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" minlength="9" onchange="getStudentByCard()" required>
+            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" minlength="11" onchange="getStudentByCard()" required>
             <div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" id="card_type1" checked onclick="cardMask('card')" name="card_type">

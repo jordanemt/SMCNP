@@ -1,5 +1,5 @@
 function createEnrollment() {
-    if ($('#enrollment-form').valid()){
+//    if ($('#enrollment-form').valid()){
         var url = "?controller=Enrollment&action=enroll";
         $.ajax({
             url: url,
@@ -13,7 +13,7 @@ function createEnrollment() {
                 alert(error.responseText);
             }
         });
-    }
+//    }
 }
 
 function switchVisibility(elementId) {
@@ -103,7 +103,7 @@ function hideAll() {
 
 var student_is_charged = false;
 function getStudentByCard() {
-    var url = "?controller=Enrollment&action=getStudentByCard";
+    var url = "?controller=Student&action=getByCard";
     $.ajax({
         url: url,
         cache: false,
@@ -153,6 +153,7 @@ function getStudentByCard() {
                 $('select').selectpicker('refresh');
                 student_is_charged = true;
             } else if (student_is_charged) {
+                $('#id').val('');
                 var card = $('#card').val();
                 $('#enrollment-form').trigger("reset");
                 $('#card').val(card);
@@ -179,7 +180,7 @@ function clearParent() {
 
 var parent_is_charged = false;
 function getParentByCard() {
-    var url = "?controller=Enrollment&action=getParentByCard";
+    var url = "?controller=Parent&action=getByCard";
     $.ajax({
         url: url,
         cache: false,
@@ -190,6 +191,7 @@ function getParentByCard() {
         success: function (data) {
             var parent = JSON.parse(data);
             if (parent !== null) {
+                clearParent();
                 if (parent['id'] !== null)
                     $('#id_parent').val(parent['id']);
                 if (parent['card'] !== null)
@@ -207,11 +209,9 @@ function getParentByCard() {
                 parent_is_charged = true;
             } else if (parent_is_charged) {
                 $('#id_parent').val('');
-                $('#full_name_parent').val('');
-                $('#nationality_parent').val('');
-                $('#ocupation_parent').val('');
-                $('#work_place_parent').val('');
-                $('#phone_parent').val('');
+                var card = $('#card_parent').val();
+                clearParent();
+                $('#card_parent').val(card);
                 parent_is_charged = false;
             }
         },

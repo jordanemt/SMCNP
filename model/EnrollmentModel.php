@@ -5,66 +5,8 @@ class EnrollmentModel {
     protected $db;
 
     public function __construct() {
-        require 'libs/SPDO.php';
+        require_once 'libs/SPDO.php';
         $this->db = SPDO::singleton();
-    }
-    
-    public function getAllDistrict() {
-        $query = $this->db->prepare("CALL sp_read_all_district ()");
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        return $result;
-    }
-    
-    public function getAllAdequacy() {
-        $query = $this->db->prepare("CALL sp_read_all_adequacy ()");
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        return $result;
-    }
-    
-    public function getAllSection() {
-        $query = $this->db->prepare("CALL sp_read_all_section ()");
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        return $result;
-    }
-    
-    public function getAllService() {
-        $query = $this->db->prepare("CALL sp_read_all_service ()");
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        return $result;
-    }
-    
-    public function getAllRoute() {
-        $query = $this->db->prepare("CALL sp_read_all_route ()");
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        return $result;
-    }
-    
-    public function getStudentByCard($card) {
-        $query = $this->db->prepare("CALL sp_read_student_by_card (?)");
-        $query->bindParam(1, $card);
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        if (!empty($result)) return $result[0];
-    }
-    
-    public function getParentByCard($card) {
-        $query = $this->db->prepare("CALL sp_read_parent_by_card (?)");
-        $query->bindParam(1, $card);
-        $query->execute();
-        $result = $query->fetchAll();
-        $query->closeCursor();
-        if (!empty($result)) return $result[0];
     }
 
     public function enroll(

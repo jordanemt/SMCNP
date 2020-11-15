@@ -142,6 +142,47 @@ BEGIN
     WHERE id = _id;
 END//
 
+CREATE PROCEDURE sp_read_student_enrollment()
+BEGIN
+    SELECT 
+	s.card, 
+    s.name, 
+    s.first_lastname, 
+    s.second_lastname,
+    sec.name AS 'section',
+    e._date AS 'enroll_date',
+    e.repeating_matters,
+    r.description AS 'route',
+    s.birthdate,
+    s.gender,
+    s.nationality,
+    s.personal_phone,
+    s.other_phone,
+    s.mep_mail,
+    s.other_mail,
+    d.name AS 'district',
+    s.direction,
+    s.suffering,
+    a.name AS 'adequacy',
+    s.is_imas_benefit,
+    s.is_teenage_father,
+    s.is_working,
+    s.is_sexual_matter,
+    s.is_ethics_matter,
+    s.is_new_student
+    FROM student AS s
+        JOIN district AS d
+            ON d.id = s.id_district
+                JOIN adequacy AS a
+                    ON a.id = s.id_adequacy
+                        JOIN route r
+                            ON r.id = s.id_route
+                                JOIN enrollment AS e
+                                    ON e.id_student = s.id
+                                        JOIN section AS sec
+                                            ON sec.id = e.id_section;
+END//
+
 CREATE PROCEDURE sp_create_parent( 
     card VARCHAR(30), 
     full_name VARCHAR(80), 
@@ -195,6 +236,14 @@ CREATE PROCEDURE sp_create_student_service(
     id_service INT)
 BEGIN
     INSERT INTO student_service(id_student, id_service) VALUES(id_student, id_service);
+END//
+
+CREATE PROCEDURE sp_read_student_service_by_id_student(
+    _id_student INT)
+BEGIN
+    SELECT s.name FROM student_service AS ss
+	JOIN service AS s ON s.id ss.id_service
+    	WHERE ss.id_student = _id_student;
 END//
 
 CREATE PROCEDURE sp_delete_student_service_by_student_id(
