@@ -10,7 +10,7 @@ class Utility {
         require_once 'model/StudentModel.php';
         $studentModel = new StudentModel();
         $data = $studentModel->getStudentEnrollment();
-        
+
         require_once 'libs/phpexcel/Classes/PHPExcel.php';
         $objPHPExcel = new PHPExcel();
         $objPHPExcel->getProperties()
@@ -59,7 +59,7 @@ class Utility {
                 }
                 $services = join(', ', $names);
             }
-            
+
             $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A' . $index, $item['card'])
                     ->setCellValue('B' . $index, $item['name'])
@@ -90,7 +90,7 @@ class Utility {
 
             $index++;
         }
-        
+
         $objPHPExcel->getActiveSheet()->setTitle('Reporte');
         $objPHPExcel->setActiveSheetIndex(0);
 
