@@ -251,7 +251,7 @@ include_once 'public/header.php';
             </div>
             <label id="is_ethics_matter-error" class="error" for="is_ethics_matter" style="display: none"></label>
         </div>
-        <div id="alert-ethics_matter" class="alert alert-danger" role="alert"> <script>$('#alert-ethics_matter').hide();</script>
+        <div id="alert-ethics_matter" class="alert alert-info" role="alert"> <script>$('#alert-ethics_matter').hide();</script>
             Debe aportar una carta firmada indicando que no desea llevar la materia de Ética
         </div>
 
@@ -273,7 +273,7 @@ include_once 'public/header.php';
             </div>
             <label id="is_sexual_matter-error" class="error" for="is_sexual_matter" style="display: none"></label>
         </div>
-        <div id="alert-sexual_matter" class="alert alert-danger" role="alert"> <script>$('#alert-sexual_matter').hide();</script>
+        <div id="alert-sexual_matter" class="alert alert-info" role="alert"> <script>$('#alert-sexual_matter').hide();</script>
             Debe aportar una carta firmada indicando que no desea llevar la materia de Sexualidad y Afectividad
         </div>
 
@@ -530,6 +530,10 @@ include_once 'public/header.php';
                     Aceptar términos y condiciones
                 </label>
                 <label id="conditions-error" class="error" for="conditions" style="display: none"></label>
+            </div>
+            
+            <div id="alert-errors" class="alert alert-danger" role="alert"> <script>$('#alert-errors').hide();</script>
+                Hay espacios sin llenar en el formulario
             </div>
         </div>
         <button type="button" class="btn btn-primary" onclick="createEnrollment();">Enviar</button>

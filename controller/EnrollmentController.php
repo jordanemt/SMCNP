@@ -5,6 +5,7 @@ require_once 'model/AdequacyModel.php';
 require_once 'model/SectionModel.php';
 require_once 'model/ServiceModel.php';
 require_once 'model/RouteModel.php';
+require_once 'model/StudentModel.php';
 
 class EnrollmentController {
 
@@ -69,6 +70,7 @@ class EnrollmentController {
                 'is_working' => $filter,
                 'is_sexual_matter' => $filter,
                 'is_ethics_matter' => $filter,
+                'is_teenage_father' => $filter,
                 'contact_name' => $filter,
                 'contact_phone' => $filter,
                 'repeating_matters' => $filter,
@@ -98,9 +100,14 @@ class EnrollmentController {
             );
             $parent = filter_input_array(INPUT_POST, $filterParent);
             
+            if ($student['id'] !== null) {
+                $studentModel = new StudentModel();
+                $studentModel->checkEnrollment($student['id']);
+            }
+            
             $model = new EnrollmentModel();
             $model->enroll($student, $id_section, $parent);
-            print_r($student);
+            echo 'Matrícula exitosa';
         } catch (Exception $e) {
             echo $e->getMessage();
         }

@@ -65,7 +65,7 @@ CREATE TABLE student(
     contact_phone VARCHAR(9),
     id_parent INT,
     id_route INT,
-    is_new_student BOOLEAN,
+    is_new_student VARCHAR(2),
 
     PRIMARY KEY(id),
     FOREIGN KEY(id_district) REFERENCES district(id),

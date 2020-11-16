@@ -1,5 +1,6 @@
 function createEnrollment() {
     if ($('#enrollment-form').valid()){
+        switchVisibilityToHide('alert-errors');
         var url = "?controller=Enrollment&action=enroll";
         $.ajax({
             url: url,
@@ -8,11 +9,14 @@ function createEnrollment() {
             data: $('#enrollment-form').serialize(),
             success: function (data) {
                 alert(data);
+                window.location.replace('http://localhost:8000/index.php');
             },
             error: function (error) {
                 alert(error.responseText);
             }
         });
+    } else {
+        switchVisibilityToShow('alert-errors');
     }
 }
 

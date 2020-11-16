@@ -35,4 +35,13 @@ class StudentModel {
         return $result;
     }
 
+    public function checkEnrollment($id) {
+        $query = $this->db->prepare("SELECT id FROM enrollment WHERE id_student = ?");
+        $query->bindParam(1, $id);
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        if (!empty($result)) throw new Exception ('Usted ya matriculó');
+    }
+
 }

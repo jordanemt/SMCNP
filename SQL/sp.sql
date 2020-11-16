@@ -77,7 +77,7 @@ BEGIN
         contact_phone,
         id_route, 
         id_parent, 
-        1
+        'Sí'
     );
     SELECT LAST_INSERT_ID() as id; 
 END//
@@ -138,7 +138,7 @@ BEGIN
         contact_phone = contact_phone, 
         id_parent = id_parent, 
         id_route = id_route,
-        is_new_student = 0
+        is_new_student = 'No'
     WHERE id = _id;
 END//
 
@@ -253,9 +253,7 @@ BEGIN
     FROM service
         JOIN student_service
             ON service.id = student_service.id_service
-                JOIN student
-                    ON student_service.id_student = student.id
-    WHERE student.id = _id;
+    WHERE student_service.id_student = _id;
 END//
 
 CREATE PROCEDURE sp_create_enrollment(

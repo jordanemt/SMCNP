@@ -15,7 +15,7 @@ class EnrollmentModel {
             
             //insert_udpate parent
             $id_parent = null;
-            if ($parent['id_parent'] === null) {
+            if ($parent['id_parent'] === null && $parent['card_parent'] !== null) {
                 $queryParent = $this->db->prepare("CALL sp_create_parent (?,?,?,?,?,?)");
                 $queryParent->bindParam(1, $parent['card_parent']);
                 $queryParent->bindParam(2, $parent['full_name_parent']);
