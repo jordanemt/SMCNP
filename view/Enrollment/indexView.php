@@ -125,13 +125,13 @@ include_once 'public/header.php';
         <div id="is_teenage_father-container" class="form-group"> <script>$('#is_teenage_father-container').hide();</script>
             <label>¿Es madre o padre adolescente (menor que 19 años)?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="teenage_fatherYes" name="is_teenage_father" value="1" required>
+                <input class="form-check-input" type="radio" id="teenage_fatherYes" name="is_teenage_father" value="Sí" required>
                 <label class="form-check-label" for="teenage_fatherYes">
                     Sí
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="teenage_fatherNo" name="is_teenage_father" value="0" required>
+                <input class="form-check-input" type="radio" id="teenage_fatherNo" name="is_teenage_father" value="No" required>
                 <label class="form-check-label" for="teenage_fatherNo">
                     No
                 </label>
@@ -202,13 +202,13 @@ include_once 'public/header.php';
         <div class="form-group">
             <label>¿Cuenta con el beneficio del IMAS?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="imas_benefitYes" name="is_imas_benefit" value="1" required>
+                <input class="form-check-input" type="radio" id="imas_benefitYes" name="is_imas_benefit" value="Sí" required>
                 <label class="form-check-label" for="imas_benefitYes">
                     Sí
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="imas_benefitNo" name="is_imas_benefit" value="0" required>
+                <input class="form-check-input" type="radio" id="imas_benefitNo" name="is_imas_benefit" value="No" required>
                 <label class="form-check-label" for="imas_benefitNo">
                     No
                 </label>
@@ -219,13 +219,13 @@ include_once 'public/header.php';
         <div class="form-group">
             <label>¿Actualmente trabaja?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="workingYes" name="is_working" value="1" required>
+                <input class="form-check-input" type="radio" id="workingYes" name="is_working" value="Sí" required>
                 <label class="form-check-label" for="workingYes">
                     Sí
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="workingNo" name="is_working" value="0" required>
+                <input class="form-check-input" type="radio" id="workingNo" name="is_working" value="No" required>
                 <label class="form-check-label" for="workingNo">
                     No
                 </label>
@@ -236,14 +236,14 @@ include_once 'public/header.php';
         <div class="form-group">
             <label>¿Desea llevar la materia de Ética?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="ethics_matterYes" name="is_ethics_matter" value="1" 
+                <input class="form-check-input" type="radio" id="ethics_matterYes" name="is_ethics_matter" value="Sí" 
                        onclick="switchVisibilityToHide('alert-ethics_matter');" required>
                 <label class="form-check-label" for="ethics_matterYes">
                     Sí
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="ethics_matterNo" name="is_ethics_matter" value="0"
+                <input class="form-check-input" type="radio" id="ethics_matterNo" name="is_ethics_matter" value="No"
                        onclick="switchVisibilityToShow('alert-ethics_matter');" required>
                 <label class="form-check-label" for="ethics_matterNo">
                     No
@@ -258,14 +258,14 @@ include_once 'public/header.php';
         <div class="form-group">
             <label>¿Desea llevar la materia de Sexualidad y Afectividad?</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="sexual_matterYes" name="is_sexual_matter" value="1"
+                <input class="form-check-input" type="radio" id="sexual_matterYes" name="is_sexual_matter" value="Sí"
                        onclick="switchVisibilityToHide('alert-sexual_matter');" required>
                 <label class="form-check-label" for="sexual_matterYes">
                     Sí
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" id="sexual_matterNo" name="is_sexual_matter" value="0"
+                <input class="form-check-input" type="radio" id="sexual_matterNo" name="is_sexual_matter" value="No"
                        onclick="switchVisibilityToShow('alert-sexual_matter');" required>
                 <label class="form-check-label" for="sexual_matterNo">
                     No

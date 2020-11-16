@@ -1,5 +1,5 @@
 function createEnrollment() {
-//    if ($('#enrollment-form').valid()){
+    if ($('#enrollment-form').valid()){
         var url = "?controller=Enrollment&action=enroll";
         $.ajax({
             url: url,
@@ -13,7 +13,7 @@ function createEnrollment() {
                 alert(error.responseText);
             }
         });
-//    }
+    }
 }
 
 function switchVisibility(elementId) {

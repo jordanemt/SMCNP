@@ -16,11 +16,11 @@ CREATE PROCEDURE sp_create_student(
     direction VARCHAR(300),
     suffering VARCHAR(100),
     id_adequacy INT,
-    is_imas_benefit BOOLEAN,
-    is_teenage_father BOOLEAN,
-    is_working BOOLEAN,
-    is_sexual_matter BOOLEAN,
-    is_ethics_matter BOOLEAN,
+    is_imas_benefit VARCHAR(2),
+    is_teenage_father VARCHAR(2),
+    is_working VARCHAR(2),
+    is_sexual_matter VARCHAR(2),
+    is_ethics_matter VARCHAR(2),
     contact_name VARCHAR(80),
     contact_phone VARCHAR(9),
     id_route INT,
@@ -104,11 +104,11 @@ CREATE PROCEDURE sp_update_student(
     direction VARCHAR(300),
     suffering VARCHAR(100),
     id_adequacy INT,
-    is_imas_benefit BOOLEAN,
-    is_teenage_father BOOLEAN,
-    is_working BOOLEAN,
-    is_sexual_matter BOOLEAN,
-    is_ethics_matter BOOLEAN,
+    is_imas_benefit VARCHAR(2),
+    is_teenage_father VARCHAR(2),
+    is_working VARCHAR(2),
+    is_sexual_matter VARCHAR(2),
+    is_ethics_matter VARCHAR(2),
     contact_name VARCHAR(20),
     contact_phone VARCHAR(9),
     id_route INT,
@@ -145,6 +145,7 @@ END//
 CREATE PROCEDURE sp_read_student_enrollment()
 BEGIN
     SELECT 
+    s.id,
 	s.card, 
     s.name, 
     s.first_lastname, 
@@ -171,15 +172,15 @@ BEGIN
     s.is_ethics_matter,
     s.is_new_student
     FROM student AS s
-        JOIN district AS d
+        LEFT JOIN district AS d
             ON d.id = s.id_district
-                JOIN adequacy AS a
+                LEFT JOIN adequacy AS a
                     ON a.id = s.id_adequacy
-                        JOIN route r
+                        LEFT JOIN route r
                             ON r.id = s.id_route
-                                JOIN enrollment AS e
+                                LEFT JOIN enrollment AS e
                                     ON e.id_student = s.id
-                                        JOIN section AS sec
+                                        LEFT JOIN section AS sec
                                             ON sec.id = e.id_section;
 END//
 
@@ -238,18 +239,23 @@ BEGIN
     INSERT INTO student_service(id_student, id_service) VALUES(id_student, id_service);
 END//
 
-CREATE PROCEDURE sp_read_student_service_by_id_student(
-    _id_student INT)
-BEGIN
-    SELECT s.name FROM student_service AS ss
-	JOIN service AS s ON s.id ss.id_service
-    	WHERE ss.id_student = _id_student;
-END//
-
 CREATE PROCEDURE sp_delete_student_service_by_student_id(
     id INT)
 BEGIN
     DELETE FROM student_service WHERE id_student = id;
+END//
+
+CREATE PROCEDURE sp_read_all_service_by_student_id(
+    _id INT)
+BEGIN
+    SELECT
+        service.name
+    FROM service
+        JOIN student_service
+            ON service.id = student_service.id_service
+                JOIN student
+                    ON student_service.id_student = student.id
+    WHERE student.id = _id;
 END//
 
 CREATE PROCEDURE sp_create_enrollment(

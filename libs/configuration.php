@@ -11,3 +11,6 @@ $config->set('dbname', 'smcnp');
 $config->set('dbuser', 'root');
 $config->set('dbpass', '');
 
+define('USE_AUTHENTICATION', 1);
+define('USERNAME', 'admin');
+define('PASSWORD', 'Cnp1974*');
