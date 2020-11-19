@@ -52,7 +52,13 @@ INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(10, '10
 INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(10, '10-9', 2021,'', 25);
 INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(10, '10-10', 2021,'', 25);
 
-INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-1', 2021,'Biología', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-1', 2021,'Química', 25);
 INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-2', 2021,'Física', 25);
-INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-3', 2021,'Química', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-3', 2021,'Biología', 25);
 INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-4', 2021,'Biología', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-5', 2021,'Biología', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-6', 2021,'Biología', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-7', 2021,'Biología', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-8', 2021,'Biología', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-9', 2021,'Biología', 25);
+INSERT INTO section(degree, name, year, workshops, current_quota) VALUES(11, '11-10', 2021,'Biología', 25);

@@ -2,17 +2,21 @@ function createEnrollment() {
     if ($('#enrollment-form').valid()){
         switchVisibilityToHide('alert-errors');
         var url = "?controller=Enrollment&action=enroll";
+        var form = new FormData($("#enrollment-form")[0]);
         $.ajax({
             url: url,
-            cache: false,
             type: "POST",
-            data: $('#enrollment-form').serialize(),
+            contentType: false,
+            cache: false,
+            processData: false,
+            data: form,
+            enctype: 'multipart/form-data',
             success: function (data) {
                 alert(data);
-                window.location.replace('http://localhost:8000/index.php');
+//                window.location.replace('http://localhost:8000/index.php');
             },
             error: function (error) {
-                alert(error.responseText);
+                alert('Error inesperado');
             }
         });
     } else {
@@ -105,6 +109,13 @@ function hideAll() {
     switchVisibilityToHide('route_container');
 }
 
+function setValMepMail() {
+    var value = $('#card').val().replace('-', '');
+    value = value.replace('-', '');
+    value = value + "@est.mep.go.cr";
+    $('#mep_mail').val(value);
+}
+
 var student_is_charged = false;
 function getStudentByCard() {
     var url = "?controller=Student&action=getByCard";
@@ -161,6 +172,7 @@ function getStudentByCard() {
                 var card = $('#card').val();
                 $('#enrollment-form').trigger("reset");
                 $('#card').val(card);
+//                $('#birthdate').val('');
                 hideAll();
                 $('select').selectpicker('refresh');
                 student_is_charged = false;

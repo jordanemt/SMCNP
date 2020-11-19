@@ -5,7 +5,7 @@ include_once 'public/header.php';
 <div class="content">
     <h2>Formulario de Matrícula</h2>
     <hr>
-    <form id="enrollment-form">
+    <form id="enrollment-form" enctype="multipart/form-data">
         <h4>Datos personales</h4>
 
         <div class="d-none form-group">
@@ -14,7 +14,8 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="card">Cédula</label>
-            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" minlength="11" onchange="getStudentByCard()" required>
+            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" minlength="11" 
+                   onchange="getStudentByCard(); setValMepMail();" required>
             <div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" id="card_type1" checked onclick="cardMask('card')" name="card_type">
@@ -25,6 +26,14 @@ include_once 'public/header.php';
                     <label class="form-check-label" for="card_type2">Extranjero</label>
                 </div>
             </div>
+            <small class="form-text text-muted">En formato 0-0000-0000</small>
+        </div>
+        
+        <div class="form-group">
+            <label for="cedula">Copia de la Cédula (opcional)</label>
+            <input type="file" class="form-control-file" id="cedula" name="cedula">
+            <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+            <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
         </div>
 
         <div class="form-group">
@@ -82,7 +91,7 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="mep_mail">Correo del MEP</label>
-            <input type="email" class="form-control" id="mep_mail" name="mep_mail" placeholder="Ingrese su correo del MEP" maxlength="100" required>
+            <input type="email" class="form-control" id="mep_mail" name="mep_mail" placeholder="Ingrese su correo del MEP" maxlength="100" readonly required>
         </div>
 
         <div class="form-group">
@@ -298,6 +307,7 @@ include_once 'public/header.php';
                         <label class="form-check-label" for="card_type2-encargado">Extranjero</label>
                     </div>
                 </div>
+                <small class="form-text text-muted">En formato 0-0000-0000</small>
             </div>
             <div class="form-group">
                 <label for="full_name_parent">Nombre completo</label>
@@ -341,16 +351,30 @@ include_once 'public/header.php';
                     <option selected disabled>Seleccione una opción</option>
                     <?php
                     foreach ($vars['degree7'] as $item) {
-                        ?>
+                        if ($item['current_quota'] != 0) {
+                            ?>
 
-                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
+                            <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
 
-                        <?php
+                            <?php
+                        }
                     }
                     ?>
                 </select>
             </div>
             <label id="level_num7-error" class="error" for="level_num7" style="display: none"></label>
+            <div class="form-group">
+                <label for="titulo_sexto">Copia del título de sexto año (opcional)</label>
+                <input type="file" class="form-control-file" id="titulo_sexto" name="titulo_sexto">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
+            <div class="form-group">
+                <label for="nota_nivel_anterior">Copia de la nota aprobada de sexto año (opcional)</label>
+                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
         </div>
         <div id="level8_container"> <script>$('#level8_container').hide();</script>
             <div class="form-group">
@@ -359,16 +383,24 @@ include_once 'public/header.php';
                     <option selected disabled>Seleccione una opción</option>
                     <?php
                     foreach ($vars['degree8'] as $item) {
-                        ?>
+                        if ($item['current_quota'] != 0) {
+                            ?>
 
-                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
+                            <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
 
-                        <?php
+                            <?php
+                        }
                     }
                     ?>
                 </select>
             </div>
             <label id="level_num8-error" class="error" for="level_num8" style="display: none"></label>
+            <div class="form-group">
+                <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de séptimo año (opcional)</label>
+                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
         </div>
         <div id="level9_container"> <script>$('#level9_container').hide();</script>
             <div class="form-group">
@@ -377,16 +409,24 @@ include_once 'public/header.php';
                     <option selected disabled>Seleccione una opción</option>
                     <?php
                     foreach ($vars['degree9'] as $item) {
-                        ?>
+                        if ($item['current_quota'] != 0) {
+                            ?>
 
-                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
+                            <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
 
-                        <?php
+                            <?php
+                        }
                     }
                     ?>
                 </select>
             </div>
             <label id="level_num9-error" class="error" for="level_num9" style="display: none"></label>
+            <div class="form-group">
+                <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de octavo año (opcional)</label>
+                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
         </div>
         <div id="level10_container"> <script>$('#level10_container').hide();</script>
             <div class="form-group">
@@ -395,16 +435,30 @@ include_once 'public/header.php';
                     <option selected disabled>Seleccione una opción</option>
                     <?php
                     foreach ($vars['degree10'] as $item) {
-                        ?>
+                        if ($item['current_quota'] != 0) {
+                            ?>
 
-                        <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' ' . $item['current_quota'] ?></option>
+                            <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' ' . $item['current_quota'] ?></option>
 
-                        <?php
+                            <?php
+                        }
                     }
                     ?>
                 </select>
             </div>
             <label id="level_num10-error" class="error" for="level_num10" style="display: none"></label>
+            <div class="form-group">
+                <label for="titulo_noveno">Copia del título de noveno año (opcional)</label>
+                <input type="file" class="form-control-file" id="titulo_noveno" name="titulo_noveno">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
+            <div class="form-group">
+                <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de noveno año (opcional)</label>
+                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
         </div>
         <div id="level11_container"> <script>$('#level11_container').hide();</script>
             <div class="form-group">
@@ -413,16 +467,24 @@ include_once 'public/header.php';
                     <option selected disabled>Seleccione una opción</option>
                     <?php
                     foreach ($vars['degree11'] as $item) {
-                        ?>
+                        if ($item['current_quota'] != 0) {
+                            ?>
 
-                        <option value="<?php echo $item['id'] ?>"><?php echo $item['workshops'] . ' ' . $item['current_quota'] ?></option>
+                            <option value="<?php echo $item['id'] ?>"><?php echo $item['name'] . ' (' . $item['workshops'] . ') ' . $item['current_quota'] ?></option>
 
-                        <?php
+                            <?php
+                        }
                     }
                     ?>
                 </select>
             </div>
             <label id="level_num11-error" class="error" for="level_num11" style="display: none"></label>
+            <div class="form-group">
+                <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de décimo año (opcional)</label>
+                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
         </div>
 
         <div class="form-group">

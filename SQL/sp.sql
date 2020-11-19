@@ -144,7 +144,8 @@ END//
 
 CREATE PROCEDURE sp_read_student_enrollment()
 BEGIN
-    SELECT 
+    SELECT
+    e.id AS 'enroll_num', 
     s.id,
 	s.card, 
     s.name, 

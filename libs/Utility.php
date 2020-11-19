@@ -21,32 +21,33 @@ class Utility {
                 ->setKeywords("Excel Office 2007 openxml php");
 
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A1', 'Cédula')
-                ->setCellValue('B1', 'Nombre')
-                ->setCellValue('C1', 'P/Apellido')
-                ->setCellValue('D1', 'S/Apellido')
-                ->setCellValue('E1', 'Sección')
-                ->setCellValue('F1', 'F/Matrícula')
-                ->setCellValue('G1', 'M/Repitentes')
-                ->setCellValue('H1', 'Servicios')
-                ->setCellValue('I1', 'Ruta')
-                ->setCellValue('J1', 'F/Nacimiento')
-                ->setCellValue('K1', 'Género')
-                ->setCellValue('L1', 'Nacionalidad')
-                ->setCellValue('M1', 'Número')
-                ->setCellValue('N1', 'O/Número')
-                ->setCellValue('O1', 'Correo/MEP')
-                ->setCellValue('P1', 'Correo')
-                ->setCellValue('Q1', 'Distrito')
-                ->setCellValue('R1', 'Dirección')
-                ->setCellValue('S1', 'Padecimiento')
-                ->setCellValue('T1', 'Adecuación')
-                ->setCellValue('U1', 'IMAS')
-                ->setCellValue('V1', 'Padre/Madre')
-                ->setCellValue('W1', 'Trabaja')
-                ->setCellValue('X1', 'M/Sexualidad')
-                ->setCellValue('Y1', 'M/Etíca')
-                ->setCellValue('Z1', 'Nuevo');
+                ->setCellValue('A1', 'Código/Matrícula')
+                ->setCellValue('B1', 'Cédula')
+                ->setCellValue('C1', 'Nombre')
+                ->setCellValue('D1', 'P/Apellido')
+                ->setCellValue('E1', 'S/Apellido')
+                ->setCellValue('F1', 'F/Nacimiento')
+                ->setCellValue('G1', 'Sección')
+                ->setCellValue('H1', 'F/Matrícula')
+                ->setCellValue('I1', 'M/Repitentes')
+                ->setCellValue('J1', 'Servicios')
+                ->setCellValue('K1', 'Ruta')
+                ->setCellValue('L1', 'Género')
+                ->setCellValue('M1', 'Nacionalidad')
+                ->setCellValue('N1', 'Número')
+                ->setCellValue('O1', 'O/Número')
+                ->setCellValue('P1', 'Correo/MEP')
+                ->setCellValue('Q1', 'Correo')
+                ->setCellValue('R1', 'Distrito')
+                ->setCellValue('S1', 'Dirección')
+                ->setCellValue('T1', 'Padecimiento')
+                ->setCellValue('U1', 'Adecuación')
+                ->setCellValue('V1', 'IMAS')
+                ->setCellValue('W1', 'Padre/Madre')
+                ->setCellValue('X1', 'Trabaja')
+                ->setCellValue('Y1', 'M/Sexualidad')
+                ->setCellValue('Z1', 'M/Etíca')
+                ->setCellValue('AA1', 'Nuevo');
 
         $index = 2;
         foreach ($data as $item) {
@@ -61,45 +62,86 @@ class Utility {
             }
 
             $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A' . $index, $item['card'])
-                    ->setCellValue('B' . $index, $item['name'])
-                    ->setCellValue('C' . $index, $item['first_lastname'])
-                    ->setCellValue('D' . $index, $item['second_lastname'])
-                    ->setCellValue('J' . $index, $item['birthdate'])
-                    ->setCellValue('E' . $index, $item['section'])
-                    ->setCellValue('F' . $index, $item['enroll_date'])
-                    ->setCellValue('G' . $index, ($item['repeating_matters'] !== null) ? $item['repeating_matters'] : 'No')
-                    ->setCellValue('H' . $index, $services)
-                    ->setCellValue('I' . $index, ($item['route'] !== null) ? $item['route'] : 'N/A')
-                    ->setCellValue('K' . $index, $item['gender'])
-                    ->setCellValue('L' . $index, $item['nationality'])
-                    ->setCellValue('M' . $index, $item['personal_phone'])
-                    ->setCellValue('N' . $index, $item['other_phone'])
-                    ->setCellValue('O' . $index, $item['mep_mail'])
-                    ->setCellValue('P' . $index, $item['other_mail'])
-                    ->setCellValue('Q' . $index, $item['district'])
-                    ->setCellValue('R' . $index, $item['direction'])
-                    ->setCellValue('S' . $index, ($item['suffering'] !== null) ? $item['suffering'] : 'No')
-                    ->setCellValue('T' . $index, ($item['adequacy'] !== null) ? $item['adequacy'] : 'No')
-                    ->setCellValue('U' . $index, $item['is_imas_benefit'])
-                    ->setCellValue('V' . $index, ($item['is_teenage_father'] !== null) ? $item['is_teenage_father'] : 'N/A')
-                    ->setCellValue('W' . $index, $item['is_working'])
-                    ->setCellValue('X' . $index, $item['is_sexual_matter'])
-                    ->setCellValue('Y' . $index, $item['is_ethics_matter'])
-                    ->setCellValue('Z' . $index, $item['is_new_student']);
+                    ->setCellValue('A' . $index, ($item['enroll_num'] !== null) ? str_pad($item['enroll_num'], 4, '0', STR_PAD_LEFT) : 'NM')
+                    ->setCellValue('B' . $index, $item['card'])
+                    ->setCellValue('C' . $index, $item['name'])
+                    ->setCellValue('D' . $index, $item['first_lastname'])
+                    ->setCellValue('E' . $index, $item['second_lastname'])
+                    ->setCellValue('F' . $index, $item['birthdate'])
+                    ->setCellValue('G' . $index, ($item['section'] !== null) ? $item['section'] : 'NM')
+                    ->setCellValue('H' . $index, ($item['enroll_date'] !== null) ? $item['enroll_date'] : 'NM')
+                    ->setCellValue('I' . $index, ($item['repeating_matters'] !== null) ? $item['repeating_matters'] : 'No')
+                    ->setCellValue('J' . $index, $services)
+                    ->setCellValue('K' . $index, ($item['route'] !== null) ? $item['route'] : 'N/A')
+                    ->setCellValue('L' . $index, $item['gender'])
+                    ->setCellValue('M' . $index, $item['nationality'])
+                    ->setCellValue('N' . $index, $item['personal_phone'])
+                    ->setCellValue('O' . $index, ($item['other_phone'] !== null) ? $item['other_phone'] : 'No')
+                    ->setCellValue('P' . $index, $item['mep_mail'])
+                    ->setCellValue('Q' . $index, ($item['other_mail'] !== null) ? $item['other_mail'] : 'No')
+                    ->setCellValue('R' . $index, $item['district'])
+                    ->setCellValue('S' . $index, $item['direction'])
+                    ->setCellValue('T' . $index, ($item['suffering'] !== null) ? $item['suffering'] : 'No')
+                    ->setCellValue('U' . $index, ($item['adequacy'] !== null) ? $item['adequacy'] : 'No')
+                    ->setCellValue('V' . $index, $item['is_imas_benefit'])
+                    ->setCellValue('W' . $index, ($item['is_teenage_father'] !== null) ? $item['is_teenage_father'] : 'N/A')
+                    ->setCellValue('X' . $index, $item['is_working'])
+                    ->setCellValue('Y' . $index, $item['is_sexual_matter'])
+                    ->setCellValue('Z' . $index, $item['is_ethics_matter'])
+                    ->setCellValue('AA' . $index, $item['is_new_student']);
 
             $index++;
         }
-
+        
         $objPHPExcel->getActiveSheet()->setTitle('Reporte');
         $objPHPExcel->setActiveSheetIndex(0);
 
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="reporte_de_estudiantes.xlsx"');
-        header('Cache-Control: max-age=0');
         $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save('php://output');
+        $objWriter->save('report_files/reporte.xlsx');
+        $this->sendZip();
         exit();
+    }
+    
+    private function sendZip() {
+        // Get real path for our folder
+        $rootPath = realpath('report_files/');
+
+        // Initialize archive object
+        $zip = new ZipArchive();
+        $zip->open('reporte.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
+
+        // Create recursive directory iterator
+        /** @var SplFileInfo[] $files */
+        $files = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($rootPath),
+                RecursiveIteratorIterator::LEAVES_ONLY
+        );
+
+        foreach ($files as $name => $file) {
+            // Skip directories (they would be added automatically)
+            if (!$file->isDir()) {
+                // Get real and relative path for current file
+                $filePath = $file->getRealPath();
+                $relativePath = substr($filePath, strlen($rootPath) + 1);
+
+                // Add current file to archive
+                $zip->addFile($filePath, $relativePath);
+            }
+        }
+
+        // Zip archive will be created only after closing object
+        $zip->close();
+        
+        $yourfile = "reporte.zip";
+        $file_name = basename($yourfile);
+
+        header("Content-Type: application/zip");
+        header("Content-Disposition: attachment; filename=$file_name");
+        header("Content-Length: " . filesize($yourfile));
+
+        readfile($yourfile);
+
+        unlink('reporte.zip');
     }
 
 }

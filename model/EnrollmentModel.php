@@ -101,14 +101,20 @@ class EnrollmentModel {
                 $queryStudent->closeCursor();
             }
             
-            $_date = date('Y-m-d');
+            date_default_timezone_set('America/Costa_Rica');
+            $_date = date('Y-m-j');
             $queryEnrollment = $this->db->prepare("CALL sp_create_enrollment (?,?,?,?)");
             $queryEnrollment->bindParam(1, $student['id']);
             $queryEnrollment->bindParam(2, $id_section);
             $queryEnrollment->bindParam(3, $_date);
             $queryEnrollment->bindParam(4, $student['repeating_matters']);
             $queryEnrollment->execute();
-            $id_enrollment = $queryEnrollment->fetchAll()[0]['id'];
+            $result = $queryEnrollment->fetchAll();
+            if (!empty($result)) {
+                $id_enrollment = $result[0]['id'];
+            } else {
+                throw new Exception('No se ha podido realizar la matrícula');
+            }
             $queryEnrollment->closeCursor();
             
             $queryDeleteServices = $this->db->prepare("CALL sp_delete_student_service_by_student_id (?)");

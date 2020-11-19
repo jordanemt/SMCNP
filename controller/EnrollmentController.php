@@ -85,7 +85,7 @@ class EnrollmentController {
             }
             
             //tranform date
-            $student['birthdate'] = date_format(date_create_from_format('d/m/Y', $student['birthdate']), 'Y-m-d');
+//            $student['birthdate'] = date_format(date_create_from_format('d/m/Y', $student['birthdate']), 'Y-m-d');
             
             $id_section = filter_input(INPUT_POST, 'id_section');
             
@@ -106,10 +106,43 @@ class EnrollmentController {
             }
             
             $model = new EnrollmentModel();
-            $model->enroll($student, $id_section, $parent);
+            $cod = $model->enroll($student, $id_section, $parent);
+            
+            $this->saveFile('cedula', $student['card']);
+            $this->saveFile('titulo_sexto', $student['card']);
+            $this->saveFile('nota_nivel_anterior', $student['card']);
+            $this->saveFile('titulo_noveno', $student['card']);
+            
             echo 'Matrícula exitosa';
         } catch (Exception $e) {
             echo $e->getMessage();
+        }
+    }
+
+    private function saveFile($file_form_name, $folder_name) {
+        if (isset($_FILES[$file_form_name])) {
+            $file_name = $_FILES[$file_form_name]['name'];
+            $file_tmp = $_FILES[$file_form_name]['tmp_name'];
+            $file_size = $_FILES[$file_form_name]['size'];
+            $file_error = $_FILES[$file_form_name]['error'];
+
+            $file_ext = explode('.', $file_name);
+            $file_actual_ext = strtolower(end($file_ext));
+
+            $allowed = array('pdf', 'docx', 'png', 'jpg', 'jpeg');
+            if (in_array($file_actual_ext, $allowed)) {
+                if ($file_error === 0) {
+                    if ($file_size < 500000) {
+                        $folder_destination = 'report_files/' . $folder_name;
+                        if (!file_exists($folder_destination)) {
+                            mkdir($folder_destination, 0777, true);
+                        }
+                        $file_new_name = $file_form_name . '.' . $file_actual_ext;
+                        $file_destination = $folder_destination . '/' . $file_new_name;
+                        move_uploaded_file($file_tmp, $file_destination);
+                    }
+                }
+            }
         }
     }
 
