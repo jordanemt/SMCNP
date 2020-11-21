@@ -85,7 +85,7 @@ class EnrollmentController {
             }
             
             //tranform date
-//            $student['birthdate'] = date_format(date_create_from_format('d/m/Y', $student['birthdate']), 'Y-m-d');
+            $student['birthdate'] = date_format(date_create_from_format('d/m/Y', $student['birthdate']), 'Y-m-d');
             
             $id_section = filter_input(INPUT_POST, 'id_section');
             
@@ -112,6 +112,8 @@ class EnrollmentController {
             $this->saveFile('titulo_sexto', $student['card']);
             $this->saveFile('nota_nivel_anterior', $student['card']);
             $this->saveFile('titulo_noveno', $student['card']);
+            $this->saveFile('carta_sexualidad', $student['card']);
+            $this->saveFile('carta_etica', $student['card']);
             
             echo 'Matrícula exitosa';
         } catch (Exception $e) {

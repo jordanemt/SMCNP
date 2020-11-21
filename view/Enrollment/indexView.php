@@ -13,7 +13,7 @@ include_once 'public/header.php';
         </div>
 
         <div class="form-group">
-            <label for="card">Cédula</label>
+            <label for="card">Cédula (0-0000-0000)</label>
             <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" minlength="11" 
                    onchange="getStudentByCard(); setValMepMail();" required>
             <div>
@@ -26,7 +26,6 @@ include_once 'public/header.php';
                     <label class="form-check-label" for="card_type2">Extranjero</label>
                 </div>
             </div>
-            <small class="form-text text-muted">En formato 0-0000-0000</small>
         </div>
         
         <div class="form-group">
@@ -262,6 +261,12 @@ include_once 'public/header.php';
         </div>
         <div id="alert-ethics_matter" class="alert alert-info" role="alert"> <script>$('#alert-ethics_matter').hide();</script>
             Debe aportar una carta firmada indicando que no desea llevar la materia de Ética
+            <div class="form-group">
+                <label for="cedula">Carta (opcional)</label>
+                <input type="file" class="form-control-file" id="carta_etica" name="carta_etica">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
         </div>
 
         <div class="form-group">
@@ -284,6 +289,12 @@ include_once 'public/header.php';
         </div>
         <div id="alert-sexual_matter" class="alert alert-info" role="alert"> <script>$('#alert-sexual_matter').hide();</script>
             Debe aportar una carta firmada indicando que no desea llevar la materia de Sexualidad y Afectividad
+            <div class="form-group">
+                <label for="cedula">Carta (opcional)</label>
+                <input type="file" class="form-control-file" id="carta_sexualidad" name="carta_sexualidad">
+                <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
+                <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
+            </div>
         </div>
 
         <div id="encargado-container">
@@ -295,7 +306,7 @@ include_once 'public/header.php';
             </div>
             
             <div class="form-group">
-                <label for="card_parent">Cédula</label>
+                <label for="card_parent">Cédula (0-0000-0000)</label>
                 <input type="text" class="form-control card" id="card_parent" name="card_parent" placeholder="Ingrese la cédula" minlength="9" onchange="getParentByCard();" required>
                 <div>
                     <div class="form-check form-check-inline">
@@ -307,7 +318,6 @@ include_once 'public/header.php';
                         <label class="form-check-label" for="card_type2-encargado">Extranjero</label>
                     </div>
                 </div>
-                <small class="form-text text-muted">En formato 0-0000-0000</small>
             </div>
             <div class="form-group">
                 <label for="full_name_parent">Nombre completo</label>
