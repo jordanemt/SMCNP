@@ -105,15 +105,51 @@ class EnrollmentController {
                 $studentModel->checkEnrollment($student['id']);
             }
             
-            $model = new EnrollmentModel();
-            $cod = $model->enroll($student, $id_section, $parent);
+            //enrroll
+//            $model = new EnrollmentModel();
+//            $model->enroll($student, $id_section, $parent);
             
+            //save files
             $this->saveFile('cedula', $student['card']);
             $this->saveFile('titulo_sexto', $student['card']);
             $this->saveFile('nota_nivel_anterior', $student['card']);
             $this->saveFile('titulo_noveno', $student['card']);
             $this->saveFile('carta_sexualidad', $student['card']);
             $this->saveFile('carta_etica', $student['card']);
+            
+            //gen vaucher
+            require 'libs/GeneradorPDF.php';
+            $generador = new GenerarPDF();
+            
+            $cursosPreferidos=array("Informática","Biología");
+            $cursosReprobados=array("Español","Ética");
+            $Estudiante=array(
+                'id'=>"0",
+                'card' => $student['card'],
+                'name' => $student['name'],
+                'first_lastname' => $student['name'],
+                'second_lastname' => $student['name'],
+                'birthdate' => $student['name'],
+                "age"=>"17",
+                "months"=>"0",
+                'gender' => "M",
+                'nationality' => $student['name'],
+                'personal_phone' => $student['name'],
+                'other_phone' => $student['name'],
+                'mep_mail' => $student['name'],
+                'other_mail' => $student['name'],
+                'direction' => $student['name'],
+                'contact_name' => $student['name'],
+                'contact_phone' => $student['name'],
+                "suffering"=> $student['name'],
+                "id_adecuacy"=> $student['name'],
+                "parent"=>array("card"=> $parent['card_parent'],"full_name"=>$parent['full_name_parent'],"ocupation"=>$parent['ocupation_parent'],"work_place"=>$parent['work_place_parent'],"phone"=>$parent['phone_parent']),
+                "enrollment"=>array("section"=>"A","_date"=>"20/10/2020","year"=>"2020","degree"=>"7")
+            );
+            
+            require 'libs/Gmail.php';
+            $gmail = new Gmail();
+//            $gmail->sendMessage('jordanea02@gmail.com', 'Sistema de Matrícula', 'Colegio Nocturno de Pococí', 'Body', '', array('files/REQUISITOS PARA MATRICULA-2021.pdf'));
             
             echo 'Matrícula exitosa';
         } catch (Exception $e) {

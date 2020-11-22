@@ -49,10 +49,15 @@ class GenerarPDF{
 	    $html2pdf = new Html2Pdf('P', 'A4', 'fr');
 	    $html2pdf->setDefaultFont('Arial');
 	    $html2pdf->writeHTML($content);
-	    $html2pdf->output('Matricula.pdf');
+            
+            $folder_destination = 'report_files/' . $Estudiante['card'];
+            if (!file_exists($folder_destination)) {
+                mkdir($folder_destination, 0777, true);
+            }
+
+            $html2pdf->output($folder_destination . '/comprobante.pdf');
 	} catch (Html2PdfException $e) {
 	    $html2pdf->clean();
-
 	    $formatter = new ExceptionFormatter($e);
 	    echo $formatter->getHtmlMessage();
 	}

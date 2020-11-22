@@ -17,4 +17,12 @@ class SectionModel {
         return $result;
     }
     
+    public function getById($id) {
+        $query = $this->db->prepare("SELECT* FROM section WHERE id = ?");
+        $query->bindParam(1, $id);
+        $query->execute();
+        $result = $query->fetchAll();
+        $query->closeCursor();
+        return $result;
+    }
 }
