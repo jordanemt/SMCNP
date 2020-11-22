@@ -30,13 +30,13 @@
   
     <table style="width: 100%; border-bottom: solid 1px #00000;">
         <tr>
-            <td style="width: 20%;height:50px;"><img src="../../public/img/ri_1.png"/></td>
+            <td style="width: 20%;height:50px;"><img src="public/img/ri_1.png"/></td>
             <td style="width: 60%; height:50px;">
               <div style="text-align: center">
                 <strong><p style="font-size: 18px;color: #0c5161;">MINISTERIO DE EDUCACIÓN PÚBLICA<BR />COLEGIO NOCTURNO DE POCOCÍ</p></strong>
               </div>
               </td>
-            <td style="width: 20%; height:50px;"><img src="../../public/img/ri_2.png"/></td>
+            <td style="width: 20%; height:50px;"><img src="public/img/ri_2.png"/></td>
         </tr>
         
     </table>

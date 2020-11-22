@@ -55,7 +55,8 @@ class GenerarPDF{
                 mkdir($folder_destination, 0777, true);
             }
 
-            $html2pdf->output($folder_destination . '/comprobante.pdf');
+            $html2pdf->output(__DIR__ . '/comprobante.pdf', 'F');
+            rename(__DIR__ . '/comprobante.pdf', $folder_destination . '/comprobante.pdf');
 	} catch (Html2PdfException $e) {
 	    $html2pdf->clean();
 	    $formatter = new ExceptionFormatter($e);
@@ -70,30 +71,31 @@ class GenerarPDF{
   	$this->generar($Estudiante,$this->checkbox,$this->cursosReprobados);
   }
 }
-/*$princiapl=new GenerarPDF();
-$cursosPreferidos=array("Informática","Biología");
-$cursosReprobados=array("Español","Ética");
-$Estudiante=array(
-				'id'=>"70000000",
-                'name' => "Justin",
-                'first_lastname' => "Villalobos",
-                'second_lastname' => "Espinoza",
-                'birthdate' => "01/11/2021",
-                "age"=>"17",
-                "months"=>"0",
-                'gender' => "M",
-                'nationality' => "Costarricense",
-                'personal_phone' => "88888888",
-                'other_phone' => "88888888",
-                'mep_mail' => "correo@correo.com",
-                'other_mail' => "correo@correo.com",
-                'direction' => "Direccion de la direccion",
-                'contact_name' => "Daniela",
-                'contact_phone' => "888888",
-                "suffering"=>"Diabetes",
-                "id_adecuacy"=>"0",
-                "parent"=>array("card"=>"70000001","full_name"=>"Juan V V","ocupation"=>"Delegado","work_place"=>"Colono","phone"=>"8888888"),
-                "enrollment"=>array("section"=>"A","_date"=>"20/10/2020","year"=>"2020","degree"=>"7")
-            );
-$princiapl->initMethod($Estudiante,$cursosPreferidos,$cursosReprobados);*/
-?>
+//$princiapl=new GenerarPDF();
+//$cursosPreferidos=array("Informática","Biología");
+//$cursosReprobados=array("Español","Ética");
+//$Estudiante=array(
+//				'id'=>"70000000",
+//                'name' => "Justin",
+//    'card' => "1-2123-1231",
+//                'first_lastname' => "Villalobos",
+//                'second_lastname' => "Espinoza",
+//                'birthdate' => "01/11/2021",
+//                "age"=>"17",
+//                "months"=>"0",
+//                'gender' => "M",
+//                'nationality' => "Costarricense",
+//                'personal_phone' => "88888888",
+//                'other_phone' => "88888888",
+//                'mep_mail' => "correo@correo.com",
+//                'other_mail' => "correo@correo.com",
+//                'direction' => "Direccion de la direccion",
+//                'contact_name' => "Daniela",
+//                'contact_phone' => "888888",
+//                "suffering"=>"Diabetes",
+//                "id_adecuacy"=>"0",
+//                "parent"=>array("card"=>"70000001","full_name"=>"Juan V V","ocupation"=>"Delegado","work_place"=>"Colono","phone"=>"8888888"),
+//                "enrollment"=>array("section"=>"A","_date"=>"20/10/2020","year"=>"2020","degree"=>"7")
+//            );
+//$princiapl->initMethod($Estudiante,$cursosPreferidos,$cursosReprobados);
+//?>

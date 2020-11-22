@@ -118,34 +118,62 @@ class EnrollmentController {
             $this->saveFile('carta_etica', $student['card']);
             
             //gen vaucher
-            require 'libs/GeneradorPDF.php';
+            require 'libs/Utilities/GeneradorPDF.php';
             $generador = new GenerarPDF();
             
-            $cursosPreferidos=array("Informática","Biología");
-            $cursosReprobados=array("Español","Ética");
-            $Estudiante=array(
-                'id'=>"0",
-                'card' => $student['card'],
-                'name' => $student['name'],
-                'first_lastname' => $student['name'],
-                'second_lastname' => $student['name'],
-                'birthdate' => $student['name'],
-                "age"=>"17",
-                "months"=>"0",
+//            $cursosPreferidos=array("Informática","Biología");
+//            $cursosReprobados=array("Español","Ética");
+//            $Estudiante=array(
+//                'id'=>"0",
+//                'card' => $student['card'],
+//                'name' => $student['name'],
+//                'first_lastname' => $student['first_lastname'],
+//                'second_lastname' => $student['second_lastname'],
+//                'birthdate' => $student['birthdate'],
+//                "age"=>"17",
+//                "months"=>"0",
+//                'gender' => "M",
+//                'nationality' => $student['nationality'],
+//                'personal_phone' => $student['personal_phone'],
+//                'other_phone' => $student['other_phone'],
+//                'mep_mail' => $student['mep_mail'],
+//                'other_mail' => $student['other_mail'],
+//                'direction' => $student['direction'],
+//                'contact_name' => $student['contact_name'],
+//                'contact_phone' => $student['contact_phone'],
+//                "suffering"=> $student['suffering'],
+//                "id_adecuacy"=> $student['id_adequacy'],
+//                "parent"=>array("card"=> $parent['card_parent'],"full_name"=>$parent['full_name_parent'],"ocupation"=>$parent['ocupation_parent'],"work_place"=>$parent['work_place_parent'],"phone"=>$parent['phone_parent']),
+//                "enrollment"=>array("section"=>"7-1","_date"=>"20/10/2020","year"=>"2020","degree"=>"7")
+//            );
+            
+            $cursosPreferidos = array("Informática", "Biología");
+            $cursosReprobados = array("Español", "Ética");
+            $Estudiante = array(
+                'id' => "70000000",
+                'card' => "7-0260-0723",
+                'name' => "Justin",
+                'first_lastname' => "Villalobos",
+                'second_lastname' => "Espinoza",
+                'birthdate' => "01/11/2021",
+                "age" => "17",
+                "months" => "0",
                 'gender' => "M",
-                'nationality' => $student['name'],
-                'personal_phone' => $student['name'],
-                'other_phone' => $student['name'],
-                'mep_mail' => $student['name'],
-                'other_mail' => $student['name'],
-                'direction' => $student['name'],
-                'contact_name' => $student['name'],
-                'contact_phone' => $student['name'],
-                "suffering"=> $student['name'],
-                "id_adecuacy"=> $student['name'],
-                "parent"=>array("card"=> $parent['card_parent'],"full_name"=>$parent['full_name_parent'],"ocupation"=>$parent['ocupation_parent'],"work_place"=>$parent['work_place_parent'],"phone"=>$parent['phone_parent']),
+                'nationality' => "Costarricense",
+                'personal_phone' => "88888888",
+                'other_phone' => "88888888",
+                'mep_mail' => "correo@correo.com",
+                'other_mail' => "correo@correo.com",
+                'direction' => "Direccion de la direccion",
+                'contact_name' => "Daniela",
+                'contact_phone' => "888888",
+                "suffering"=>"Diabetes",
+                "id_adecuacy"=>"0",
+                "parent"=>array("card"=>"70000001","full_name"=>"Juan V V","ocupation"=>"Delegado","work_place"=>"Colono","phone"=>"8888888"),
                 "enrollment"=>array("section"=>"A","_date"=>"20/10/2020","year"=>"2020","degree"=>"7")
             );
+            
+            $generador->initMethod($Estudiante, $cursosPreferidos, $cursosReprobados);
             
             require 'libs/Gmail.php';
             $gmail = new Gmail();
