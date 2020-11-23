@@ -36,7 +36,7 @@
                 <strong><p style="font-size: 18px;color: #0c5161;">MINISTERIO DE EDUCACIÓN PÚBLICA<BR />COLEGIO NOCTURNO DE POCOCÍ</p></strong>
               </div>
               </td>
-            <td style="width: 20%; height:50px;"><img src="public/img/ri_2.png"/></td>
+              <td style="width: 20%; height:50px;"><img src="public/img/logo.png" width="72" height="77"/></td>
         </tr>
         
     </table>
@@ -47,7 +47,9 @@
     <div class="special">
         <table>
           <tr>
-            <td  style="width: 30%;"></td>
+            <td style="width: 15%;"><strong> <span style="font-size: 14px;">Comprobante:</span></strong></td>
+              <td style="width: 10%;font-size: 14px" class="bottomRight"><?php echo $Estudiante["enrollment"]['id']?></td>
+              <td style="width: 10%"></td>
             <td  style="width: 40%;">
               <strong><span style="font-size: 18px">MATRICULA 2021</span></strong>
             </td>
@@ -62,12 +64,6 @@
     </div>
       <br/>
       <div class="special">
-          <table>
-          <tr>
-              <td style="width: 15%;"><strong> <span style="font-size: 14px;">Comprobante:</span></strong></td>
-              <td style="width: 10%;font-size: 14px" class="bottomRight"><?php echo $Estudiante["enrollment"]['id']?></td>
-          </tr> 
-          </table>
         <table>
           <tr>
                 <td style="width: 10%;"> <strong> <span style="font-size: 14px;">Fecha:</span></strong></td>
@@ -112,7 +108,7 @@
                 <td style="width: 5%;"></td>
               <td style="width: 20%;text-align:left;" class="bottomRight"><?php echo $Estudiante["second_lastname"]?></td>
                 <td style="width: 5%;"></td>
-              <td style="width: 20%;text-align:left;" class="bottomRight"><?php echo $Estudiante["id"]?></td>
+              <td style="width: 20%;text-align:left;" class="bottomRight"><?php echo $Estudiante["card"]?></td>
             </tr>
             <tr>
               <td style="width: 20%;text-align:center;" class="">

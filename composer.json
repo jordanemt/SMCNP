@@ -1,0 +1,14 @@
+{
+    "name": "vendor/s-m-c-n-p",
+    "description": "Description of project SMCNP.",
+    "authors": [
+        {
+            "name": "Jordan",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "phpoffice/phpspreadsheet": "dev-master",
+        "spipu/html2pdf": "dev-master"
+    }
+}

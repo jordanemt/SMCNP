@@ -3,15 +3,18 @@
 class EnrollmentModel {
 
     protected $db;
+    private $transactionActive;
 
     public function __construct() {
         require_once 'libs/SPDO.php';
         $this->db = SPDO::singleton();
+        $this->transactionActive = false;
     }
 
     public function enroll($student, $id_section, $parent) {
         try {
             $this->db->beginTransaction();
+            $this->transactionActive = true;
             
             //insert_udpate parent
             $id_parent = null;
@@ -132,12 +135,21 @@ class EnrollmentModel {
                 }
             }
             
-            $this->db->commit();
+//            $this->db->commit();
             return $id_enrollment;
         } catch (Exception $e) {
             $this->db->rollBack();
+            $this->transactionActive = false;
             throw $e;
         }
+    }
+    
+    public function commit() {
+        if ($this->transactionActive) $this->db->commit();
+    }
+    
+     public function rollBack() {
+        if ($this->transactionActive) $this->db->rollBack();
     }
 
 }

@@ -20,10 +20,10 @@ class EnrollmentController {
         $sectionModel = new SectionModel();
         $serviceModel = new ServiceModel();
         $routeModel = new RouteModel();
-        
+
         $vars['district_list'] = $districtModel->getAll();
         $vars['adequacy_list'] = $adequacyModel->getAll();
-        
+
         $section_list = $sectionModel->getAll();
         $vars['degree7'] = array();
         $vars['degree8'] = array();
@@ -33,22 +33,26 @@ class EnrollmentController {
         foreach ($section_list as $section) {
             array_push($vars['degree' . $section['degree']], $section);
         }
-        
+
         $vars['service_list'] = $serviceModel->getAll();
         $vars['route_list'] = $routeModel->getAll();
-        
+
         $this->view->show($this->controllerName . 'indexView.php', $vars);
     }
-    
+
     public function enroll() {
+        $model = new EnrollmentModel();
         try {
+            require_once 'libs/Utility.php';
+            $utility = new Utility();
+
             $filter = array(
-                'filter' => FILTER_CALLBACK, 
+                'filter' => FILTER_CALLBACK,
                 'options' => function ($input) {
-                $filtered = filter_var($input, FILTER_SANITIZE_STRING);
-                return $filtered ? $filtered: null; 
-            });
-            
+                    $filtered = filter_var($input, FILTER_SANITIZE_STRING);
+                    return $filtered ? $filtered : null;
+                });
+
             $filterStudent = array(
                 'id' => $filter,
                 'card' => $filter,
@@ -78,20 +82,20 @@ class EnrollmentController {
                 'id_route' => $filter
             );
             $student = filter_input_array(INPUT_POST, $filterStudent);
-            
+
             //concat repeating matters
             $repeating_matters_original = array();
             if ($student['repeating_matters'] !== null) {
                 $repeating_matters_original = $student['repeating_matters'];
                 $student['repeating_matters'] = join(', ', $student['repeating_matters']);
             }
-            
+
             //tranform date
             $birthdate_original = $student['birthdate'];
             $student['birthdate'] = date_format(date_create_from_format('d/m/Y', $student['birthdate']), 'Y-m-d');
-            
+
             $id_section = filter_input(INPUT_POST, 'id_section');
-            
+
             $filterParent = array(
                 'id_parent' => $filter,
                 'card_parent' => $filter,
@@ -102,45 +106,39 @@ class EnrollmentController {
                 'phone_parent' => $filter
             );
             $parent = filter_input_array(INPUT_POST, $filterParent);
-            
+
             if ($student['id'] !== null) {
                 $studentModel = new StudentModel();
                 $studentModel->checkEnrollment($student['id']);
             }
             
-            //enrroll
-            $model = new EnrollmentModel();
-            $id_enroll = $model->enroll($student, $id_section, $parent);
-            echo 'Matrícula exitosa';
-            
             //save files
-            $this->saveFile('cedula', $student['card']);
-            $this->saveFile('titulo_sexto', $student['card']);
-            $this->saveFile('nota_nivel_anterior', $student['card']);
-            $this->saveFile('titulo_noveno', $student['card']);
-            $this->saveFile('carta_sexualidad', $student['card']);
-            $this->saveFile('carta_etica', $student['card']);
+            $utility->saveFile('cedula', $student['card']);
+            $utility->saveFile('titulo_sexto', $student['card']);
+            $utility->saveFile('nota_nivel_anterior', $student['card']);
+            $utility->saveFile('titulo_noveno', $student['card']);
+            $utility->saveFile('carta_sexualidad', $student['card']);
+            $utility->saveFile('carta_etica', $student['card']);
             
-            //gen vaucher
-            require 'libs/Utilities/GeneradorPDF.php';
-            $generador = new GenerarPDF();
+            //enrroll
+            $id_enroll = $model->enroll($student, $id_section, $parent);
 
             date_default_timezone_set('America/Costa_Rica');
             $from = new DateTime(date_format(date_create_from_format('Y-m-d', $student['birthdate']), 'Y-m-d'));
             $to = new DateTime('today');
             $age = $from->diff($to)->y;
             $months = $from->diff($to)->m;
-            
+
             $sectionModel = new SectionModel();
             $section = $sectionModel->getById($id_section);
-            
+
             $districtModel = new DistrictModel();
             $district = $districtModel->getById($student['id_district']);
-            
+
             $workshop789 = ($section['degree'] != 11 && $section['degree'] != 10) ? $section['workshops'] : '';
             $workshop11 = ($section['degree'] == 11) ? $section['workshops'] : '';
-            
-            $cursosPreferidos = array((($section['degree'] != 10)? $section['workshops']:''));
+
+            $cursosPreferidos = array((($section['degree'] != 10) ? $section['workshops'] : ''));
             $Estudiante = array(
                 'id' => "0",
                 'card' => $student['card'],
@@ -160,7 +158,7 @@ class EnrollmentController {
                 'contact_name' => $student['contact_name'],
                 'contact_phone' => $student['contact_phone'],
                 "suffering" => (isset($student['suffering'])) ? $student['suffering'] : '',
-                "id_adecuacy" => (isset($student['id_adequacy']))? true : false,
+                "id_adecuacy" => (isset($student['id_adequacy'])) ? true : false,
                 "district" => $district['name'],
                 "workshop11" => $workshop11,
                 "workshop789" => $workshop789,
@@ -178,59 +176,32 @@ class EnrollmentController {
                     "degree" => $section['degree'])
             );
 
-            $generador->initMethod($Estudiante, $cursosPreferidos, $repeating_matters_original);
-            
-            require 'libs/Gmail.php';
-            $gmail = new Gmail();
-            
+            $utility->createVaucher($Estudiante, $cursosPreferidos, $repeating_matters_original);
+
             $fromMessage = "Colegio Nocturno de Pococí";
             $subjectMessage = "Comprobante de Matrícula No " . str_pad($id_enroll, 4, '0', STR_PAD_LEFT);
-            $bodyMessage = "Estimad" . (($student['gender'] == 'MASCULINO') ? "o " : "a ") . 
+            $bodyMessage = "Estimad" . (($student['gender'] == 'MASCULINO') ? "o " : "a ") .
                     $student['name'] . " " . $student['first_lastname'] . " " . $student['second_lastname'] . ", " .
                     "el Colegio Nocturno de Pococí le agradece concedernos la responsabilidad de su formación académica en el próximo " .
                     "curso lectivo 2021 en nuestra institución.\nAcá le remitimos el comprobante de matrícula en línea y debe presentarse " .
                     "en el Colegio y entregar este documento firmado, así como los documentos originales para hacer oficial la matrícula en el Colegio.\n" .
                     "Usted puede hacer entrega estos documentos cuando pueda llevarlos físicamente al Colegio.\nSaludos atentos,\nColegio Nocturno de Pococí.";
-            
+
             if (isset($student['mep_mail'])) {
                 $mail = $student['mep_mail'];
                 $comprobante_direction = 'report_files/' . $student['card'] . '/comprobante.pdf';
-                $gmail->sendMessage($mail, $fromMessage, $subjectMessage, $bodyMessage, '', array('public/files/Requisitos.jpeg', $comprobante_direction));
+                $utility->sendGmailMail($mail, $fromMessage, $subjectMessage, $bodyMessage, array('public/files/Requisitos.jpeg', $comprobante_direction));
             }
             if (isset($student['other_mail'])) {
                 $mail = $student['other_mail'];
                 $comprobante_direction = 'report_files/' . $student['card'] . '/comprobante.pdf';
-                $gmail->sendMessage($mail, $fromMessage, $subjectMessage, $bodyMessage, '', array('public/files/Requisitos.jpeg', $comprobante_direction));
+                $utility->sendGmailMail($mail, $fromMessage, $subjectMessage, $bodyMessage, array('public/files/Requisitos.jpeg', $comprobante_direction));
             }
+            $model->commit();
+            echo 'Matrícula exitosa';
         } catch (Exception $e) {
+            $model->rollBack();
             echo $e->getMessage();
-        }
-    }
-
-    private function saveFile($file_form_name, $folder_name) {
-        if (isset($_FILES[$file_form_name])) {
-            $file_name = $_FILES[$file_form_name]['name'];
-            $file_tmp = $_FILES[$file_form_name]['tmp_name'];
-            $file_size = $_FILES[$file_form_name]['size'];
-            $file_error = $_FILES[$file_form_name]['error'];
-
-            $file_ext = explode('.', $file_name);
-            $file_actual_ext = strtolower(end($file_ext));
-
-            $allowed = array('pdf', 'docx', 'png', 'jpg', 'jpeg');
-            if (in_array($file_actual_ext, $allowed)) {
-                if ($file_error === 0) {
-                    if ($file_size < 500000) {
-                        $folder_destination = 'report_files/' . $folder_name;
-                        if (!file_exists($folder_destination)) {
-                            mkdir($folder_destination, 0777, true);
-                        }
-                        $file_new_name = $file_form_name . '.' . $file_actual_ext;
-                        $file_destination = $folder_destination . '/' . $file_new_name;
-                        move_uploaded_file($file_tmp, $file_destination);
-                    }
-                }
-            }
         }
     }
 

@@ -1,5 +1,8 @@
 <?php
-require_once 'libs/configuration.php';
+
+define('USE_AUTHENTICATION', 1);
+define('USERNAME', 'admin');
+define('PASSWORD', 'Cnp1974*');
 
 if (USE_AUTHENTICATION == 1) {
     if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) ||
@@ -13,6 +16,8 @@ if (USE_AUTHENTICATION == 1) {
             require_once 'libs/Utility.php';
             $utility = new Utility();
             $utility->generateReport();
+            $utility->sendZipReportFiles();
+            exit();
         } catch (Exception $e) {
             echo 'Error inesperado';
         }

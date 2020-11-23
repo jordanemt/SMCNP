@@ -607,8 +607,12 @@ include_once 'public/header.php';
             <div id="alert-errors" class="alert alert-danger" role="alert"> <script>$('#alert-errors').hide();</script>
                 Hay espacios sin llenar en el formulario
             </div>
+            
+            <div id="alert-loading" class="alert alert-info" role="alert"> <script>$('#alert-loading').hide();</script>
+                Cargando...
+            </div>
         </div>
-        <button type="button" class="btn btn-primary" onclick="createEnrollment();">Enviar</button>
+        <button id="submit" type="button" class="btn btn-primary" onclick="createEnrollment();">Enviar</button>
     </form>
 </div>
 

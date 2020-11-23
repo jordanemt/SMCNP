@@ -1,9 +1,142 @@
 <?php
+require 'vendor/autoload.php';
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use Spipu\Html2Pdf\Html2Pdf;
+use Spipu\Html2Pdf\Exception\Html2PdfException;
+use Spipu\Html2Pdf\Exception\ExceptionFormatter;
 
 class Utility {
 
-    public function __construct() {
-        //Construct conf
+    private $checkbox = array();
+    private $cursosReprobados = array();
+    
+    private function createFolder($folder) {
+        $oldmask = umask(0);
+        mkdir($folder, 0777, true);
+        umask($oldmask);
+    }
+    
+    public function saveFile($file_form_name, $folder_name) {
+        if (isset($_FILES[$file_form_name])) {
+            $file_name = $_FILES[$file_form_name]['name'];
+            $file_tmp = $_FILES[$file_form_name]['tmp_name'];
+            $file_size = $_FILES[$file_form_name]['size'];
+            $file_error = $_FILES[$file_form_name]['error'];
+
+            $file_ext = explode('.', $file_name);
+            $file_actual_ext = strtolower(end($file_ext));
+
+            $allowed = array('pdf', 'docx', 'png', 'jpg', 'jpeg');
+            if (in_array($file_actual_ext, $allowed)) {
+                if ($file_error === 0) {
+                    if ($file_size < 500000) {
+                        $folder_destination = 'report_files/' . $folder_name;
+                        if (!file_exists($folder_destination)) {
+                            $this->createFolder($folder_destination);
+                        }
+                        $file_new_name = $file_form_name . '.' . $file_actual_ext;
+                        $file_destination = $folder_destination . '/' . $file_new_name;
+                        move_uploaded_file($file_tmp, $file_destination);
+                    } else {
+                        throw new Exception('El archivo excede los 5mb');
+                    }
+                } else {
+                    throw new Exception('Ocurrió un error con los archivos');
+                }
+            }
+        }
+    }
+
+    public function createVaucher($Estudiante,$cursosDePreferencia,$cursosReprobados) {
+        $checkboxCursos = array("Informática", "Inglés conversacional", "Contaduría", "Química", "Física", "Biología");
+        $checkboxCursosRepetidos = array("Español", "Ciencias", "Estudios Sociales", "Matemática", "Inglés", "Cívica", "Ética", "Química", "Física", "Biología");
+        $this->createcheckbox($cursosDePreferencia, $checkboxCursos, "cursosAprobados");
+        $this->createcheckbox($cursosReprobados, $checkboxCursosRepetidos, "cursosReprobados");
+        $this->htmlToPdf($Estudiante, $this->checkbox, $this->cursosReprobados);
+    }
+
+    private function htmlToPdf($Estudiante, $cursosDePreferencia, $cursosReprobados) {
+        try {
+            ob_start();
+            include 'Utilities/PDF.php';
+            $content = ob_get_clean();
+            $html2pdf = new Html2Pdf('P', 'A4', 'fr');
+            $html2pdf->setDefaultFont('Arial');
+            $html2pdf->writeHTML($content);
+
+            $folder_destination = 'report_files/' . $Estudiante['card'];
+            //$folder_destination = '/usr/share/matricula/report_files/' . $Estudiante['card'];
+            if (!file_exists($folder_destination)) {
+                $this->createFolder($folder_destination);
+            }
+
+            $html2pdf->output(__DIR__ . '/comprobante.pdf', 'F');
+            rename(__DIR__ . '/comprobante.pdf', '' . $folder_destination . '/comprobante.pdf');
+        } catch (Html2PdfException $e) {
+            $html2pdf->clean();
+            $formatter = new ExceptionFormatter($e);
+            throw new Exception('Error al generar el comprobante');
+        }
+    }
+    
+    private function createcheckbox($objects, $options, $opcion) {
+        $validator = false;
+        $temp = array();
+        foreach ($options as $option) {
+            
+            foreach ($objects as $key) {
+                if ($key === $option) {
+                    $validator = true;
+                }
+            }
+
+            if ($validator === true) {
+                $validator = false;
+                if ($opcion == "cursosAprobados") {
+                    array_push($this->checkbox, array("name" => $option, "checked" => "x"));
+                } else {
+                    array_push($this->cursosReprobados, array("name" => $option, "checked" => "x"));
+                }
+            } else {
+                if ($opcion == "cursosAprobados") {
+                    array_push($this->checkbox, array("name" => $option, "checked" => ""));
+                } else {
+                    array_push($this->cursosReprobados, array("name" => $option, "checked" => ""));
+                }
+            }
+            
+        }
+    }
+
+    public function sendGmailMail($FromUser, $FromName, $Subject, $Body, $archivos) {
+        require_once 'PhpMailer/PHPMailerAutoload.php';
+        require_once 'libs/Config.php';
+        $config = Config::singleton();
+
+        $mail = new phpmailer();
+        $mail->isSMTP();
+        $mail->Host = $config->get('gmailHost');
+        $mail->SMTPAuth = $config->get('gmailHost');
+        $mail->SMTPSecure = $config->get('gmailSecure');
+        $mail->Port = $config->get('gmailPort');
+        $mail->Username = $config->get('gmailUser');
+        $mail->Password = $config->get('gmailPass');
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
+
+        $mail->From = $FromUser;
+        $mail->FromName = $FromName;
+        $mail->AddAddress($FromUser);
+        for ($i = 0; $i < count($archivos); $i++) {
+            $mail->addAttachment($archivos[$i]);
+        }
+        $mail->Subject = $Subject;
+        $mail->Body = $Body;
+        if (!$mail->send()) {
+            throw new Exception('Error al enviar el correo');
+        }
     }
 
     public function generateReport() {
@@ -11,16 +144,10 @@ class Utility {
         $studentModel = new StudentModel();
         $data = $studentModel->getStudentEnrollment();
 
-        require_once 'libs/phpexcel/Classes/PHPExcel.php';
-        $objPHPExcel = new PHPExcel();
-        $objPHPExcel->getProperties()
-                ->setCreator("SMCNP")
-                ->setLastModifiedBy("SMCNP")
-                ->setTitle("Reporte de matrícula")
-                ->setDescription("Demostracion sobre como crear archivos de Excel desde PHP.")
-                ->setKeywords("Excel Office 2007 openxml php");
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
-        $objPHPExcel->setActiveSheetIndex(0)
+        $sheet
                 ->setCellValue('A1', 'Código/Matrícula')
                 ->setCellValue('B1', 'Cédula')
                 ->setCellValue('C1', 'Nombre')
@@ -61,7 +188,7 @@ class Utility {
                 $services = join(', ', $names);
             }
 
-            $objPHPExcel->setActiveSheetIndex(0)
+            $sheet
                     ->setCellValue('A' . $index, ($item['enroll_num'] !== null) ? str_pad($item['enroll_num'], 4, '0', STR_PAD_LEFT) : 'NM')
                     ->setCellValue('B' . $index, $item['card'])
                     ->setCellValue('C' . $index, $item['name'])
@@ -92,18 +219,12 @@ class Utility {
 
             $index++;
         }
-        
-        $objPHPExcel->getActiveSheet()->setTitle('Reporte');
-        $objPHPExcel->setActiveSheetIndex(0);
 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-        $objWriter->save('report_files/reporte.xlsx');
-        $this->sendZip();
-        exit();
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('report_files/reporte.xlsx');
     }
-    
-    private function sendZip() {
-        // Get real path for our folder
+
+    public function sendContentZipReportFiles() {
         $rootPath = realpath('report_files/');
 
         // Initialize archive object
@@ -111,14 +232,12 @@ class Utility {
         $zip->open('reporte.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
         // Create recursive directory iterator
-        /** @var SplFileInfo[] $files */
         $files = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator($rootPath),
                 RecursiveIteratorIterator::LEAVES_ONLY
         );
 
-        foreach ($files as $name => $file) {
-            // Skip directories (they would be added automatically)
+        foreach ($files as $file) {
             if (!$file->isDir()) {
                 // Get real and relative path for current file
                 $filePath = $file->getRealPath();
@@ -129,18 +248,16 @@ class Utility {
             }
         }
 
-        // Zip archive will be created only after closing object
         $zip->close();
-        
-        $yourfile = "reporte.zip";
-        $file_name = basename($yourfile);
+
+        $reportZip = "reporte.zip";
+        $file_name = basename($reportZip);
 
         header("Content-Type: application/zip");
         header("Content-Disposition: attachment; filename=$file_name");
-        header("Content-Length: " . filesize($yourfile));
+        header("Content-Length: " . filesize($reportZip));
 
-        readfile($yourfile);
-
+        readfile($reportZip);
         unlink('reporte.zip');
     }
 

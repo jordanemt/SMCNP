@@ -1,5 +1,11 @@
+function loading() {
+    $('#submit').attr('disabled', true);
+    switchVisibilityToShow('alert-loading');
+}
+
 function createEnrollment() {
     if ($('#enrollment-form').valid()){
+        loading();
         switchVisibilityToHide('alert-errors');
         var url = "?controller=Enrollment&action=enroll";
         var form = new FormData($("#enrollment-form")[0]);
@@ -13,10 +19,12 @@ function createEnrollment() {
             enctype: 'multipart/form-data',
             success: function (data) {
                 alert(data);
-                window.location.replace('http://localhost:8000/index.php');
+                window.location.replace('https://ligatealnocturno.os.cr/matricula');
             },
             error: function (error) {
                 alert('Error inesperado');
+                $('#submit').attr('disabled', false);
+                switchVisibilityToHide('alert-loading');
             }
         });
     } else {

@@ -7,7 +7,7 @@ class SPDO extends PDO {
     public function __construct() {
         $config = Config::singleton();
 //       parent::__construct('mysql:host='.$config->get('dbhost').';dbname='.$config->get('dbname'),
-//               $config->get('dbuser'), $config->get('dbpass'));
+//               $config->get('dbuser'), $config->get('dbpass'), array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
         parent::__construct('mysql:host=' . $config->get('dbhost') . ';dbname=' . $config->get('dbname'),
                 $config->get('dbuser'));
     }

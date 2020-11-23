@@ -28,7 +28,6 @@ class Gmail {
     public function sendMessage($FromUser, $FromName, $Subject, $Body, $AltBody, $archivos) {
         $mail = $this->mail();
 
-//        $ruta = "";
         $mail->From = $FromUser;
         $mail->FromName = $FromName;
         $mail->AddAddress($FromUser);
