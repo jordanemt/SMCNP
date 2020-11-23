@@ -40,12 +40,12 @@ class GenerarPDF{
 		
 	}
 
-  public function generar($Estudiante,$cursosDePreferencia,$cursosReprobados){
-  	try {
-    ob_start();
-
-	    include 'PDF.php';
-	    $content = ob_get_clean();
+  public function generar($Estudiante, $cursosDePreferencia, $cursosReprobados) {
+        try {
+            ob_start();
+            
+            include 'PDF.php';
+            $content = ob_get_clean();
 	    $html2pdf = new Html2Pdf('P', 'A4', 'fr');
 	    $html2pdf->setDefaultFont('Arial');
 	    $html2pdf->writeHTML($content);
@@ -56,7 +56,7 @@ class GenerarPDF{
             }
 
             $html2pdf->output(__DIR__ . '/comprobante.pdf', 'F');
-            rename(__DIR__ . '/comprobante.pdf', $folder_destination . '/comprobante.pdf');
+            rename(__DIR__ . '/comprobante.pdf', '' . $folder_destination . '/comprobante.pdf');
 	} catch (Html2PdfException $e) {
 	    $html2pdf->clean();
 	    $formatter = new ExceptionFormatter($e);
@@ -64,8 +64,8 @@ class GenerarPDF{
 	}
   }
   public function initMethod($Estudiante,$cursosDePreferencia,$cursosReprobados){
-  	$checkboxCursos=array("Informática","Ingles conversacional","Contabilidad","Química","Física","Biología");
-  	$checkboxCursosRepetidos=array("Español","Ciencias","Estudios Sociales","Matématica","Inglés","Cívica","Ética","Química","Física","Biología");
+  	$checkboxCursos=array("Informática","Inglés conversacional","Contaduría","Química","Física","Biología");
+  	$checkboxCursosRepetidos=array("Español","Ciencias","Estudios Sociales","Matemática","Inglés","Cívica","Ética","Química","Física","Biología");
   	$this->Createcheckbox($cursosDePreferencia,$checkboxCursos,"cursosAprobados");
   	$this->Createcheckbox($cursosReprobados,$checkboxCursosRepetidos,"cursosReprobados");
   	$this->generar($Estudiante,$this->checkbox,$this->cursosReprobados);

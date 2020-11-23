@@ -80,11 +80,14 @@ class EnrollmentController {
             $student = filter_input_array(INPUT_POST, $filterStudent);
             
             //concat repeating matters
+            $repeating_matters_original = array();
             if ($student['repeating_matters'] !== null) {
+                $repeating_matters_original = $student['repeating_matters'];
                 $student['repeating_matters'] = join(', ', $student['repeating_matters']);
             }
             
             //tranform date
+            $birthdate_original = $student['birthdate'];
             $student['birthdate'] = date_format(date_create_from_format('d/m/Y', $student['birthdate']), 'Y-m-d');
             
             $id_section = filter_input(INPUT_POST, 'id_section');
@@ -106,8 +109,9 @@ class EnrollmentController {
             }
             
             //enrroll
-//            $model = new EnrollmentModel();
-//            $model->enroll($student, $id_section, $parent);
+            $model = new EnrollmentModel();
+            $id_enroll = $model->enroll($student, $id_section, $parent);
+            echo 'Matrícula exitosa';
             
             //save files
             $this->saveFile('cedula', $student['card']);
@@ -120,66 +124,84 @@ class EnrollmentController {
             //gen vaucher
             require 'libs/Utilities/GeneradorPDF.php';
             $generador = new GenerarPDF();
+
+            date_default_timezone_set('America/Costa_Rica');
+            $from = new DateTime(date_format(date_create_from_format('Y-m-d', $student['birthdate']), 'Y-m-d'));
+            $to = new DateTime('today');
+            $age = $from->diff($to)->y;
+            $months = $from->diff($to)->m;
             
-//            $cursosPreferidos=array("Informática","Biología");
-//            $cursosReprobados=array("Español","Ética");
-//            $Estudiante=array(
-//                'id'=>"0",
-//                'card' => $student['card'],
-//                'name' => $student['name'],
-//                'first_lastname' => $student['first_lastname'],
-//                'second_lastname' => $student['second_lastname'],
-//                'birthdate' => $student['birthdate'],
-//                "age"=>"17",
-//                "months"=>"0",
-//                'gender' => "M",
-//                'nationality' => $student['nationality'],
-//                'personal_phone' => $student['personal_phone'],
-//                'other_phone' => $student['other_phone'],
-//                'mep_mail' => $student['mep_mail'],
-//                'other_mail' => $student['other_mail'],
-//                'direction' => $student['direction'],
-//                'contact_name' => $student['contact_name'],
-//                'contact_phone' => $student['contact_phone'],
-//                "suffering"=> $student['suffering'],
-//                "id_adecuacy"=> $student['id_adequacy'],
-//                "parent"=>array("card"=> $parent['card_parent'],"full_name"=>$parent['full_name_parent'],"ocupation"=>$parent['ocupation_parent'],"work_place"=>$parent['work_place_parent'],"phone"=>$parent['phone_parent']),
-//                "enrollment"=>array("section"=>"7-1","_date"=>"20/10/2020","year"=>"2020","degree"=>"7")
-//            );
+            $sectionModel = new SectionModel();
+            $section = $sectionModel->getById($id_section);
             
-            $cursosPreferidos = array("Informática", "Biología");
-            $cursosReprobados = array("Español", "Ética");
+            $districtModel = new DistrictModel();
+            $district = $districtModel->getById($student['id_district']);
+            
+            $workshop789 = ($section['degree'] != 11 && $section['degree'] != 10) ? $section['workshops'] : '';
+            $workshop11 = ($section['degree'] == 11) ? $section['workshops'] : '';
+            
+            $cursosPreferidos = array((($section['degree'] != 10)? $section['workshops']:''));
             $Estudiante = array(
-                'id' => "70000000",
-                'card' => "7-0260-0723",
-                'name' => "Justin",
-                'first_lastname' => "Villalobos",
-                'second_lastname' => "Espinoza",
-                'birthdate' => "01/11/2021",
-                "age" => "17",
-                "months" => "0",
-                'gender' => "M",
-                'nationality' => "Costarricense",
-                'personal_phone' => "88888888",
-                'other_phone' => "88888888",
-                'mep_mail' => "correo@correo.com",
-                'other_mail' => "correo@correo.com",
-                'direction' => "Direccion de la direccion",
-                'contact_name' => "Daniela",
-                'contact_phone' => "888888",
-                "suffering"=>"Diabetes",
-                "id_adecuacy"=>"0",
-                "parent"=>array("card"=>"70000001","full_name"=>"Juan V V","ocupation"=>"Delegado","work_place"=>"Colono","phone"=>"8888888"),
-                "enrollment"=>array("section"=>"A","_date"=>"20/10/2020","year"=>"2020","degree"=>"7")
+                'id' => "0",
+                'card' => $student['card'],
+                'name' => $student['name'],
+                'first_lastname' => $student['first_lastname'],
+                'second_lastname' => $student['second_lastname'],
+                'birthdate' => $birthdate_original,
+                "age" => $age,
+                "months" => $months,
+                'gender' => substr($student['gender'], 0, 1),
+                'nationality' => $student['nationality'],
+                'personal_phone' => $student['personal_phone'],
+                'other_phone' => (isset($student['other_phone'])) ? $student['other_phone'] : '',
+                'mep_mail' => $student['mep_mail'],
+                'other_mail' => (isset($student['other_mail'])) ? $student['other_mail'] : '',
+                'direction' => $student['direction'],
+                'contact_name' => $student['contact_name'],
+                'contact_phone' => $student['contact_phone'],
+                "suffering" => (isset($student['suffering'])) ? $student['suffering'] : '',
+                "id_adecuacy" => (isset($student['id_adequacy']))? true : false,
+                "district" => $district['name'],
+                "workshop11" => $workshop11,
+                "workshop789" => $workshop789,
+                "parent" => array(
+                    "card" => (isset($parent['card_parent'])) ? $parent['card_parent'] : '',
+                    "full_name" => (isset($parent['full_name_parent'])) ? $parent['full_name_parent'] : '',
+                    "ocupation" => (isset($parent['ocupation_parent'])) ? $parent['ocupation_parent'] : '',
+                    "work_place" => (isset($parent['work_place_parent'])) ? $parent['work_place_parent'] : '',
+                    "phone" => (isset($parent['phone_parent'])) ? $parent['phone_parent'] : ''),
+                "enrollment" => array(
+                    "id" => str_pad($id_enroll, 4, '0', STR_PAD_LEFT),
+                    "section" => $section['name'],
+                    "_date" => date_format($to, 'd/m/Y'),
+                    "year" => date_format($to, 'Y'),
+                    "degree" => $section['degree'])
             );
-            
-            $generador->initMethod($Estudiante, $cursosPreferidos, $cursosReprobados);
+
+            $generador->initMethod($Estudiante, $cursosPreferidos, $repeating_matters_original);
             
             require 'libs/Gmail.php';
             $gmail = new Gmail();
-//            $gmail->sendMessage('jordanea02@gmail.com', 'Sistema de Matrícula', 'Colegio Nocturno de Pococí', 'Body', '', array('files/REQUISITOS PARA MATRICULA-2021.pdf'));
             
-            echo 'Matrícula exitosa';
+            $fromMessage = "Colegio Nocturno de Pococí";
+            $subjectMessage = "Comprobante de Matrícula No " . str_pad($id_enroll, 4, '0', STR_PAD_LEFT);
+            $bodyMessage = "Estimad" . (($student['gender'] == 'MASCULINO') ? "o " : "a ") . 
+                    $student['name'] . " " . $student['first_lastname'] . " " . $student['second_lastname'] . ", " .
+                    "el Colegio Nocturno de Pococí le agradece concedernos la responsabilidad de su formación académica en el próximo " .
+                    "curso lectivo 2021 en nuestra institución.\nAcá le remitimos el comprobante de matrícula en línea y debe presentarse " .
+                    "en el Colegio y entregar este documento firmado, así como los documentos originales para hacer oficial la matrícula en el Colegio.\n" .
+                    "Usted puede hacer entrega estos documentos cuando pueda llevarlos físicamente al Colegio.\nSaludos atentos,\nColegio Nocturno de Pococí.";
+            
+            if (isset($student['mep_mail'])) {
+                $mail = $student['mep_mail'];
+                $comprobante_direction = 'report_files/' . $student['card'] . '/comprobante.pdf';
+                $gmail->sendMessage($mail, $fromMessage, $subjectMessage, $bodyMessage, '', array('public/files/Requisitos.jpeg', $comprobante_direction));
+            }
+            if (isset($student['other_mail'])) {
+                $mail = $student['other_mail'];
+                $comprobante_direction = 'report_files/' . $student['card'] . '/comprobante.pdf';
+                $gmail->sendMessage($mail, $fromMessage, $subjectMessage, $bodyMessage, '', array('public/files/Requisitos.jpeg', $comprobante_direction));
+            }
         } catch (Exception $e) {
             echo $e->getMessage();
         }

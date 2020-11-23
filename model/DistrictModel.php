@@ -17,4 +17,13 @@ class DistrictModel {
         return $result;
     }
     
+    public function getById($id) {
+        $query = $this->db->prepare("SELECT* FROM district WHERE id = ?");
+        $query->bindParam(1, $id);
+        $query->execute();
+        $result = $query->fetch();
+        $query->closeCursor();
+        return $result;
+    }
+    
 }

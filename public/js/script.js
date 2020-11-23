@@ -13,7 +13,7 @@ function createEnrollment() {
             enctype: 'multipart/form-data',
             success: function (data) {
                 alert(data);
-//                window.location.replace('http://localhost:8000/index.php');
+                window.location.replace('http://localhost:8000/index.php');
             },
             error: function (error) {
                 alert('Error inesperado');

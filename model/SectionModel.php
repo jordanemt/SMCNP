@@ -21,7 +21,7 @@ class SectionModel {
         $query = $this->db->prepare("SELECT* FROM section WHERE id = ?");
         $query->bindParam(1, $id);
         $query->execute();
-        $result = $query->fetchAll();
+        $result = $query->fetch();
         $query->closeCursor();
         return $result;
     }

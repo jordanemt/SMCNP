@@ -50,7 +50,6 @@
             <td  style="width: 30%;"></td>
             <td  style="width: 40%;">
               <strong><span style="font-size: 18px">MATRICULA 2021</span></strong>
-
             </td>
             <td  style="width: 15%; height:10px;">
               <div style="display:flex;text-align:bottom;">
@@ -59,14 +58,16 @@
             </td>
            <td style="width: 15%;text-align:left;" class="bottomRight"><?php echo $Estudiante["enrollment"]["section"]?></td>
           </tr>
-          
-   
         </table>
-
-            
-      </div>
+    </div>
       <br/>
       <div class="special">
+          <table>
+          <tr>
+              <td style="width: 15%;"><strong> <span style="font-size: 14px;">Comprobante:</span></strong></td>
+              <td style="width: 10%;font-size: 14px" class="bottomRight"><?php echo $Estudiante["enrollment"]['id']?></td>
+          </tr> 
+          </table>
         <table>
           <tr>
                 <td style="width: 10%;"> <strong> <span style="font-size: 14px;">Fecha:</span></strong></td>
@@ -79,8 +80,7 @@
 
                 <td style="width: 25%;text-align:right;margin-left: 25px;"><strong> <span style="font-size: 14px;">Taller(7°, 8° y 9°):</span></strong></td>
 
-               
-                  <td style="width: 15%;" class="bottomRight"></td>
+               <td style="width: 15%;" class="bottomRight"><?php echo $Estudiante["workshop789"]?></td>
             </tr>
            
           </table>
@@ -94,11 +94,9 @@
               </td>
               <td style="width: 40%; "></td>
               <td style="width: 20%;height:10px;text-align:bottom;">
-
                   <strong> <p style="font-size: 14px;margin-left: 45px;">Ciencia (11°)</p></strong>
-                
-            </td>
-               <td style="width: 10%;text-align:left;" class="bottomRight"></td>
+              </td>
+               <td style="width: 10%;text-align:left;" class="bottomRight"><?php echo $Estudiante["workshop11"]?></td>
             </tr>
           
             
@@ -221,7 +219,7 @@
               <td style="width: 5%;"></td>
               <td style="width: 15%;text-align:left;" class="bottomRight"><p style="margin-left: 15px;margin-top:25px;">Pococí</p></td>
                 <td style="width: 5%;"></td>
-              <td style="width: 15%;text-align:left;" class="bottomRight"></td>
+              <td style="width: 15%;text-align:left;" class="bottomRight"><p style="margin-left: 15px;margin-top:25px;"><?php echo $Estudiante["district"]?></p></td>
                 <td style="width: 5%;"></td>
              
             </tr>
@@ -289,10 +287,10 @@
                 
                   <div style="display:inline-block;margin-top:10px;">
 
-                     <label style="margin-left:15px;font-size: 14px;"><?php if(strlen($Estudiante["id_adecuacy"])=="0"){echo "(x)";}else{echo "()";}?> </label>
+                      <label style="margin-left:15px;font-size: 14px;"><?php if(!$Estudiante['id_adecuacy']){echo "(x)";}else{echo "()";}?> </label>
                       <label for="op1"  style="margin-left:5px;font-size: 14px;">No</label>
                       
-                      <label style="margin-left:15px;font-size: 14px;"><?php if(strlen($Estudiante["id_adecuacy"])!="0"){echo "(x)";}else{echo "()";}?> </label>
+                      <label style="margin-left:15px;font-size: 14px;"><?php if($Estudiante['id_adecuacy']){echo "(x)";}else{echo "()";}?> </label>
                       <label for="op2" style="margin-left:15px;font-size: 14px;"> Si</label>
                   </div>
                 </td>

@@ -20,6 +20,8 @@ class Gmail {
         $mail->Port = Gmail::PORT;
         $mail->Username = Gmail::USERNAME;
         $mail->Password = Gmail::PSW;
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
         return $mail;
     }
 
@@ -34,13 +36,13 @@ class Gmail {
             $mail->addAttachment($archivos[$i]);
         }
         $mail->Subject = $Subject;
-        $mail->Body = "<b>" . $Body . "</b>";
+        $mail->Body = $Body;
         $mail->AltBody = $AltBody;
         if (!$mail->send()) {
-            echo 'Message could not be sent.';
-            echo 'Mailer Error: ' . $mail->ErrorInfo;
+//            echo 'Message could not be sent.';
+//            echo 'Mailer Error: ' . $mail->ErrorInfo;
         } else {
-            echo 'Message has been sent';
+//            echo 'Message has been sent';
         }
     }
 
