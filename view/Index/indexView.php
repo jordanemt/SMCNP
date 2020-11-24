@@ -2,7 +2,7 @@
 include_once 'public/header.php';
 ?>
 
-<div class="content">
+<div class="content container">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4">
@@ -20,6 +20,7 @@ include_once 'public/header.php';
             <h4 class="display-5">Requisitos</h4>
             <div class="alert alert-info" role="alert">
                 La matrícula no tendrá efecto si no hace la entrega de los siguientes documentos en las oficinas de secretaría del Colegio Nocturno:
+                <small class="form-text text-muted">Este formulario permite subir los archivos de la siguiente lista (excepto la hoja de matrícula, la cual va a ser generada automáticamente), debe tener los archivos necesarios para poder subirlos (se permiten pdf, docx, png, jpg y jpeg, deben ser de un tamaño menor a 5mb).</small>
             </div>
             <ul class="list-group">
                 <li class="list-group-item">1. Copia de Cédula (pasaporte o cédula de residencia).</li>
@@ -36,7 +37,7 @@ include_once 'public/header.php';
                 NOTA IMPORTANTE: Este registro quedará anulado si la información suministrada no es CORRECTA o bien no cumple con los requisitos antes mencionados.
             </div>
             <div class="d-flex justify-content-center">
-                <a href="?controller=Enrollment" class="btn btn-primary btn-lg btn-block button col-sm-6">Ir al formulario</a>
+                <a href="?controller=Enrollment" class="btn btn-primary btn-lg btn-block col-sm-6">Ir al formulario</a>
             </div>
         </div>
     </div>

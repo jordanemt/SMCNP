@@ -115,14 +115,17 @@ class EnrollmentController {
             //save files
             $utility->saveFile('cedula', $student['card']);
             $utility->saveFile('titulo_sexto', $student['card']);
-            $utility->saveFile('nota_nivel_anterior', $student['card']);
+            $utility->saveFile('nota_nivel_anterior_sexto', $student['card']);
+            $utility->saveFile('nota_nivel_anterior_septimo', $student['card']);
+            $utility->saveFile('nota_nivel_anterior_octavo', $student['card']);
+            $utility->saveFile('nota_nivel_anterior_noveno', $student['card']);
+            $utility->saveFile('nota_nivel_anterior_decimo', $student['card']);
             $utility->saveFile('titulo_noveno', $student['card']);
             $utility->saveFile('carta_sexualidad', $student['card']);
             $utility->saveFile('carta_etica', $student['card']);
             
             //enrroll
             $id_enroll = $model->enroll($student, $id_section, $parent);
-
             date_default_timezone_set('America/Costa_Rica');
             $from = new DateTime(date_format(date_create_from_format('Y-m-d', $student['birthdate']), 'Y-m-d'));
             $to = new DateTime('today');
@@ -152,7 +155,7 @@ class EnrollmentController {
                 'nationality' => $student['nationality'],
                 'personal_phone' => $student['personal_phone'],
                 'other_phone' => (isset($student['other_phone'])) ? $student['other_phone'] : '',
-                'mep_mail' => $student['mep_mail'],
+                'mep_mail' => $student['mep_mail'] . ((isset($student['other_mail']))? '/' . $student['other_mail'] : ''),
                 'other_mail' => (isset($student['other_mail'])) ? $student['other_mail'] : '',
                 'direction' => $student['direction'],
                 'contact_name' => $student['contact_name'],
@@ -197,6 +200,7 @@ class EnrollmentController {
                 $comprobante_direction = 'report_files/' . $student['card'] . '/comprobante.pdf';
                 $utility->sendGmailMail($mail, $fromMessage, $subjectMessage, $bodyMessage, array('public/files/Requisitos.jpeg', $comprobante_direction));
             }
+            
             $model->commit();
             echo 'Matrícula exitosa';
         } catch (Exception $e) {

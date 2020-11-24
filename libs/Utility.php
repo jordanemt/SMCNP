@@ -51,7 +51,7 @@ class Utility {
 
     public function createVaucher($Estudiante,$cursosDePreferencia,$cursosReprobados) {
         $checkboxCursos = array("Informática", "Inglés conversacional", "Contaduría", "Química", "Física", "Biología");
-        $checkboxCursosRepetidos = array("Español", "Ciencias", "Estudios Sociales", "Matemática", "Inglés", "Cívica", "Ética", "Química", "Física", "Biología");
+        $checkboxCursosRepetidos = array("Español", "Ciencias", "Estudios Sociales", "Matemática", "Inglés", "Cívica", "Ética", "Química", "Física", "Biología", 'Taller lll ciclo');
         $this->createcheckbox($cursosDePreferencia, $checkboxCursos, "cursosAprobados");
         $this->createcheckbox($cursosReprobados, $checkboxCursosRepetidos, "cursosReprobados");
         $this->htmlToPdf($Estudiante, $this->checkbox, $this->cursosReprobados);

@@ -1,3 +1,7 @@
+function clearFiles() {
+    $('.enrroll_files').val('');
+}
+
 function loading() {
     $('#submit').attr('disabled', true);
     switchVisibilityToShow('alert-loading');
@@ -19,7 +23,9 @@ function createEnrollment() {
             enctype: 'multipart/form-data',
             success: function (data) {
                 alert(data);
-                window.location.replace('https://ligatealnocturno.os.cr/matricula');
+//                window.location.replace('https://ligatealnocturno.os.cr/matricula');
+//                $('#submit').attr('disabled', false);
+//                switchVisibilityToHide('alert-loading');
             },
             error: function (error) {
                 alert('Error inesperado');

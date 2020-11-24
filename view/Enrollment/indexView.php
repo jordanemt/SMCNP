@@ -2,7 +2,7 @@
 include_once 'public/header.php';
 ?>
 
-<div class="content">
+<div class="content container" style="padding: 15px">
     <h2>Formulario de Matrícula</h2>
     <hr>
     <form id="enrollment-form" enctype="multipart/form-data">
@@ -14,7 +14,7 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="card">Cédula (0-0000-0000)</label>
-            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" minlength="11" 
+            <input type="text" class="form-control card" id="card" name="card" placeholder="Ingrese la cédula" 
                    onchange="getStudentByCard(); setValMepMail();" required>
             <div>
                 <div class="form-check form-check-inline">
@@ -37,7 +37,7 @@ include_once 'public/header.php';
 
         <div class="form-group">
             <label for="name">Nombre</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese su nombre" maxlength="40" required>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese su nombre" maxlength="25" required>
         </div>
 
         <div class="form-group">
@@ -83,7 +83,7 @@ include_once 'public/header.php';
         </div>
 
         <div class="form-group">
-            <label for="other_phone">Otro teléfono</label>
+            <label for="other_phone">Teléfono hogar/Otro teléfono</label>
             <input type="text" class="form-control phone" id="other_phone" name="other_phone" placeholder="Ingrese otro número de teléfono" minlength="9">
             <small class="form-text text-muted">Opcional</small>
         </div>
@@ -94,9 +94,9 @@ include_once 'public/header.php';
         </div>
 
         <div class="form-group">
-            <label for="other_mail">Otro correo</label>
+            <label for="other_mail">Correo personal</label>
             <input type="email" class="form-control" id="other_mail" name="other_mail" placeholder="Ingrese otro correo" maxlength="100">
-            <small class="form-text text-muted">Opcional</small>
+            <small class="form-text text-muted">Opcional (se recomienda agregar)</small>
         </div>
 
         <div class="form-group">
@@ -123,7 +123,7 @@ include_once 'public/header.php';
         
         <div class="form-group">
             <label for="contact_name">Nombre completo de un contacto de emergencia</label>
-            <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Ingrese el nombre completo del contacto" required>
+            <input type="text" class="form-control" id="contact_name" name="contact_name" placeholder="Ingrese el nombre completo del contacto" maxlength="65" required>
         </div>
         <div class="form-group">
             <label for="contact_phone">Teléfono del contacto de emergencia</label>
@@ -167,7 +167,7 @@ include_once 'public/header.php';
         </div>
         <div id="suffering_container" class="form-group"> <script>$('#suffering_container').hide();</script>
             <label for="suffering">¿Qué enfermedad?</label>
-            <input type="text" class="form-control" id="suffering" name="suffering" placeholder="Ingrese la enfermedad" maxlength="100" required>
+            <input type="text" class="form-control" id="suffering" name="suffering" placeholder="Ingrese la enfermedad" maxlength="35" required>
         </div>
 
         <div class="form-group">
@@ -307,7 +307,7 @@ include_once 'public/header.php';
             
             <div class="form-group">
                 <label for="card_parent">Cédula (0-0000-0000)</label>
-                <input type="text" class="form-control card" id="card_parent" name="card_parent" placeholder="Ingrese la cédula" minlength="9" onchange="getParentByCard();" required>
+                <input type="text" class="form-control card" id="card_parent" name="card_parent" placeholder="Ingrese la cédula" onchange="getParentByCard();" required>
                 <div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="card_type1-encargado" checked onclick="cardMask('card_parent')" name="card_parent_type">
@@ -321,7 +321,7 @@ include_once 'public/header.php';
             </div>
             <div class="form-group">
                 <label for="full_name_parent">Nombre completo</label>
-                <input type="text" class="form-control" id="full_name_parent" name="full_name_parent" placeholder="Ingrese el nombre completo" maxlength="80" required>
+                <input type="text" class="form-control" id="full_name_parent" name="full_name_parent" placeholder="Ingrese el nombre completo" maxlength="65" required>
             </div>
             <div class="form-group">
                 <label for="nationality_parent">Nacionalidad</label>
@@ -344,7 +344,7 @@ include_once 'public/header.php';
         <h4>Matricula</h4>
         <div class="form-group">
             <label for="degree">Nivel de matrícula</label>
-            <select class="form-control" id="degree" name="degree" onchange="showDegreeContainerSelected();" required>
+            <select class="form-control" id="degree" name="degree" onchange="showDegreeContainerSelected(); clearFiles();" required>
                 <option selected disabled>Seleccione una opción</option>
                 <option value="7">Séptimo</option>
                 <option value="8">Octavo</option>
@@ -375,13 +375,13 @@ include_once 'public/header.php';
             <label id="level_num7-error" class="error" for="level_num7" style="display: none"></label>
             <div class="form-group">
                 <label for="titulo_sexto">Copia del título de sexto año (opcional)</label>
-                <input type="file" class="form-control-file" id="titulo_sexto" name="titulo_sexto">
+                <input type="file" class="form-control-file enrroll_files" id="titulo_sexto" name="titulo_sexto">
                 <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
                 <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
             </div>
             <div class="form-group">
                 <label for="nota_nivel_anterior">Copia de la nota aprobada de sexto año (opcional)</label>
-                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <input type="file" class="form-control-file enrroll_files" id="nota_nivel_anterior_6" name="nota_nivel_anterior_sexto">
                 <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
                 <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
             </div>
@@ -407,7 +407,7 @@ include_once 'public/header.php';
             <label id="level_num8-error" class="error" for="level_num8" style="display: none"></label>
             <div class="form-group">
                 <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de séptimo año (opcional)</label>
-                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <input type="file" class="form-control-file enrroll_files" id="nota_nivel_anterior_7" name="nota_nivel_anterior_septimo">
                 <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
                 <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
             </div>
@@ -433,7 +433,7 @@ include_once 'public/header.php';
             <label id="level_num9-error" class="error" for="level_num9" style="display: none"></label>
             <div class="form-group">
                 <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de octavo año (opcional)</label>
-                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <input type="file" class="form-control-file enrroll_files" id="nota_nivel_anterior_8" name="nota_nivel_anterior_octavo">
                 <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
                 <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
             </div>
@@ -459,13 +459,13 @@ include_once 'public/header.php';
             <label id="level_num10-error" class="error" for="level_num10" style="display: none"></label>
             <div class="form-group">
                 <label for="titulo_noveno">Copia del título de noveno año (opcional)</label>
-                <input type="file" class="form-control-file" id="titulo_noveno" name="titulo_noveno">
+                <input type="file" class="form-control-file enrroll_files" id="titulo_noveno" name="titulo_noveno">
                 <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
                 <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
             </div>
             <div class="form-group">
                 <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de noveno año (opcional)</label>
-                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <input type="file" class="form-control-file enrroll_files" id="nota_nivel_anterior_9" name="nota_nivel_anterior_noveno">
                 <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
                 <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
             </div>
@@ -491,7 +491,7 @@ include_once 'public/header.php';
             <label id="level_num11-error" class="error" for="level_num11" style="display: none"></label>
             <div class="form-group">
                 <label for="nota_nivel_anterior">Si es estudiante de otra institución agregue la copia de la nota aprobada de décimo año (opcional)</label>
-                <input type="file" class="form-control-file" id="nota_nivel_anterior" name="nota_nivel_anterior">
+                <input type="file" class="form-control-file enrroll_files" id="nota_nivel_anterior_10" name="nota_nivel_anterior_decimo">
                 <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
                 <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
             </div>

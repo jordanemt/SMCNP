@@ -28,10 +28,10 @@
     </head>
 
     <body>
-        <div class="body-content container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <a href="index.php"><img alt="SMCNP" src="public/img/logo.png" width="80px"/></a>
-                <h1>Colegio Nocturno de Pococí</h1>
+        <div class="body-content">
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #08a5ff">
+                <a href="index.php"><img alt="SMCNP" src="public/img/logo.png" width="75px"/></a>
+                <h1 style="color: white;">Colegio Nocturno de Pococí</h1>
                 <div class="navbar" id="navbarNav">
                     <ul class="navbar-nav">
                     </ul>
