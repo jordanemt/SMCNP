@@ -23,7 +23,7 @@ function createEnrollment() {
             enctype: 'multipart/form-data',
             success: function (data) {
                 alert(data);
-//                window.location.replace('https://ligatealnocturno.os.cr/matricula');
+                window.location.replace('https://ligatealnocturno.os.cr/matricula');
 //                $('#submit').attr('disabled', false);
 //                switchVisibilityToHide('alert-loading');
             },
@@ -191,9 +191,18 @@ function getStudentByCard() {
                 $('select').selectpicker('refresh');
                 student_is_charged = false;
             }
+            
+            if (student_is_charged) {
+                $('.required-file').removeAttr('required');
+            } else {
+                $('.required-file').attr('required', 'true');
+            }
         },
         error: function (error) {
-            alert(error.responseText);
+            alert('Error al cargar datos del estudiante');
+        },
+        complete: function () {
+            setValMepMail();
         }
     });
 }
@@ -246,7 +255,7 @@ function getParentByCard() {
             }
         },
         error: function (error) {
-            alert(error.responseText);
+            alert('Error al cargar datos del encargado');
         }
     });
 }
@@ -282,4 +291,5 @@ $(document).ready(function () {
     });
     
     overwriteJQueryMessages();
+    $('.required-file').attr('required', 'true');
 });

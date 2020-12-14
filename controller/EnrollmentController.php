@@ -188,7 +188,7 @@ class EnrollmentController {
                     "el Colegio Nocturno de Pococí le agradece concedernos la responsabilidad de su formación académica en el próximo " .
                     "curso lectivo 2021 en nuestra institución.\nAcá le remitimos el comprobante de matrícula en línea y debe presentarse " .
                     "en el Colegio y entregar este documento firmado, así como los documentos originales para hacer oficial la matrícula en el Colegio.\n" .
-                    "Usted puede hacer entrega estos documentos cuando pueda llevarlos físicamente al Colegio.\nSaludos atentos,\nColegio Nocturno de Pococí.";
+                    "Usted puede hacer entrega estos documentos cuando pueda llevarlos físicamente al Colegio (la fecha para entregar los documentos en físico es del 7 al 18 de diciembre).\nSaludos atentos,\nColegio Nocturno de Pococí.";
 
             if (isset($student['mep_mail'])) {
                 $mail = $student['mep_mail'];

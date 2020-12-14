@@ -37,7 +37,7 @@ class EnrollmentModel {
                 $queryParent->bindParam(4, $parent['ocupation_parent']);
                 $queryParent->bindParam(5, $parent['work_place_parent']);
                 $queryParent->bindParam(6, $parent['phone_parent']);
-                $queryParent->execute();
+                if (!($queryParent->execute())) throw new Exception('No se ha podido realizar la matrícula');
                 $id_parent = $parent['id_parent'];
                 $queryParent->closeCursor();
             }
@@ -100,7 +100,7 @@ class EnrollmentModel {
                 $queryStudent->bindParam(22, $student['contact_phone']);
                 $queryStudent->bindParam(23, $student['id_route']);
                 $queryStudent->bindParam(24, $id_parent);
-                $queryStudent->execute();
+                if (!($queryStudent->execute())) throw new Exception('No se ha podido realizar la matrícula');
                 $queryStudent->closeCursor();
             }
             
@@ -130,7 +130,7 @@ class EnrollmentModel {
                     $queryService = $this->db->prepare("CALL sp_create_student_service (?,?)");
                     $queryService->bindParam(1, $student['id']);
                     $queryService->bindParam(2, $id_service);
-                    $queryService->execute();
+                    if (!($queryService->execute())) throw new Exception('No se ha podido realizar la matrícula');
                     $queryService->closeCursor();
                 }
             }

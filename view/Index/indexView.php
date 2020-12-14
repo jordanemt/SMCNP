@@ -19,7 +19,7 @@ include_once 'public/header.php';
             </ul>
             <h4 class="display-5">Requisitos</h4>
             <div class="alert alert-info" role="alert">
-                La matrícula no tendrá efecto si no hace la entrega de los siguientes documentos en las oficinas de secretaría del Colegio Nocturno:
+                La matrícula no tendrá efecto si no hace la entrega de los siguientes documentos en las oficinas de secretaría del Colegio Nocturno (la fecha para entregar los documentos en físico es del 7 al 18 de diciembre):
                 <small class="form-text text-muted">Este formulario permite subir los archivos de la siguiente lista (excepto la hoja de matrícula, la cual va a ser generada automáticamente), debe tener los archivos necesarios para poder subirlos (se permiten pdf, docx, png, jpg y jpeg, deben ser de un tamaño menor a 5mb).</small>
             </div>
             <ul class="list-group">

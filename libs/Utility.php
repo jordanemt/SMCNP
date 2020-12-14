@@ -50,7 +50,7 @@ class Utility {
     }
 
     public function createVaucher($Estudiante,$cursosDePreferencia,$cursosReprobados) {
-        $checkboxCursos = array("Informática", "Inglés conversacional", "Contaduría", "Química", "Física", "Biología");
+        $checkboxCursos = array("Informática", "Inglés", "Contaduría", "Química", "Física", "Biología");
         $checkboxCursosRepetidos = array("Español", "Ciencias", "Estudios Sociales", "Matemática", "Inglés", "Cívica", "Ética", "Química", "Física", "Biología", 'Taller lll ciclo');
         $this->createcheckbox($cursosDePreferencia, $checkboxCursos, "cursosAprobados");
         $this->createcheckbox($cursosReprobados, $checkboxCursosRepetidos, "cursosReprobados");
@@ -66,14 +66,14 @@ class Utility {
             $html2pdf->setDefaultFont('Arial');
             $html2pdf->writeHTML($content);
 
-            $folder_destination = 'report_files/' . $Estudiante['card'];
-            //$folder_destination = '/usr/share/matricula/report_files/' . $Estudiante['card'];
+            //$folder_destination = 'report_files/' . $Estudiante['card'];
+            $folder_destination = '/usr/share/matricula/report_files/' . $Estudiante['card'];
             if (!file_exists($folder_destination)) {
                 $this->createFolder($folder_destination);
             }
 
-            $html2pdf->output(__DIR__ . '/comprobante.pdf', 'F');
-            rename(__DIR__ . '/comprobante.pdf', '' . $folder_destination . '/comprobante.pdf');
+            $html2pdf->output($folder_destination . '/comprobante.pdf', 'F');
+            //rename(__DIR__ . '/comprobante.pdf', '' . $folder_destination . '/comprobante.pdf');
         } catch (Html2PdfException $e) {
             $html2pdf->clean();
             $formatter = new ExceptionFormatter($e);
@@ -178,6 +178,7 @@ class Utility {
 
         $index = 2;
         foreach ($data as $item) {
+            if($item['enroll_num'] === null) continue;
             $serviceName_list = $studentModel->getAllServiceNameById($item['id']);
             $services = 'No';
             if ($serviceName_list !== null) {
