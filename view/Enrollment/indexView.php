@@ -30,7 +30,7 @@ include_once 'public/header.php';
         
         <div class="form-group">
             <label for="cedula">Copia de la Cédula</label>
-            <input type="file" class="form-control-file" id="cedula" name="cedula" require>
+            <input type="file" class="form-control-file" id="cedula" name="cedula" required>
             <small class="form-text text-muted">No se permiten archivos de más de 5mb</small>
             <small class="form-text text-muted">Se permiten (pdf, docx, jpg, jpeg y png)</small>
         </div>
@@ -85,7 +85,6 @@ include_once 'public/header.php';
         <div class="form-group">
             <label for="other_phone">Teléfono hogar/Otro teléfono</label>
             <input type="text" class="form-control phone" id="other_phone" name="other_phone" placeholder="Ingrese otro número de teléfono" minlength="9" required>
-            <small class="form-text text-muted">Opcional</small>
         </div>
 
         <div class="form-group">

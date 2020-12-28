@@ -109,7 +109,7 @@ CREATE PROCEDURE sp_update_student(
     is_working VARCHAR(2),
     is_sexual_matter VARCHAR(2),
     is_ethics_matter VARCHAR(2),
-    contact_name VARCHAR(20),
+    contact_name VARCHAR(80),
     contact_phone VARCHAR(9),
     id_route INT,
     id_parent INT)
@@ -182,7 +182,8 @@ BEGIN
                                 LEFT JOIN enrollment AS e
                                     ON e.id_student = s.id
                                         LEFT JOIN section AS sec
-                                            ON sec.id = e.id_section;
+                                            ON sec.id = e.id_section
+                                                ORDER BY e.id;
 END//
 
 CREATE PROCEDURE sp_create_parent( 
